@@ -16,6 +16,9 @@ import ru.zhevnov.coffeeTime.service.IShiftService;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,9 +59,12 @@ public class ShiftService implements IShiftService {
         }
     }
 
-    @Override
+    @Transactional
     public void closeShift(int idEmployee) {
-
+       Shift shift = shiftRepository.returnOpenedShiftByEmployeeId(idEmployee, new Date(System.currentTimeMillis()));
+       shift.setDateClosed(new Date(System.currentTimeMillis()));
+       shift.setTimeClosed(new Time(System.currentTimeMillis()));
+       shiftRepository.save(shift);
     }
 
     @Transactional
@@ -105,5 +111,24 @@ public class ShiftService implements IShiftService {
         shift.setTimeOpened(timeOpened);
         shift.setTimeClosed(timeClosed);
         shiftRepository.save(shift);
+    }
+
+    @Transactional
+    public List makeReport(int idCommercialObject, Date fromDate, Date toDate) {
+        DecimalFormat format = new DecimalFormat("##.00");
+        DecimalFormatSymbols dfs = format.getDecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        format.setDecimalFormatSymbols(dfs);
+        List list = new ArrayList();
+        List<Object[]> objList = shiftRepository.makeReport(idCommercialObject, fromDate, toDate);
+        for (Object[] objs : objList) {
+            list.add(objs[0] == null ? 0.0 : format.format(Double.valueOf((Double) objs[0])));
+            list.add(objs[1] == null ? 0.0 : format.format(Double.valueOf((Double) objs[1])));
+            list.add(objs[2] == null ? 0.0 : format.format(Double.valueOf((Double) objs[2])));
+            list.add(objs[3].toString());
+            list.add(objs[4].toString());
+        }
+        System.out.println(list);
+        return list;
     }
 }

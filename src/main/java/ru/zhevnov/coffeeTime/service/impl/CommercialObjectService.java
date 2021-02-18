@@ -80,10 +80,6 @@ public class CommercialObjectService implements ICommercialObjectService {
         }
     }
 
-    @Override
-    public void addItemInCommercialObjectWarehouse(int idCommercialObject, int idItem) {
-
-    }
 
     @Transactional
     public void saveOrUpdate(CommercialObject commercialObject) {
