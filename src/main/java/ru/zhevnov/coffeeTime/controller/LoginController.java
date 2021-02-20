@@ -9,6 +9,9 @@ import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
 import ru.zhevnov.coffeeTime.service.IEmployeeService;
 import ru.zhevnov.coffeeTime.service.IShiftService;
 
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/login")
 @SessionAttributes("user")
@@ -26,20 +29,49 @@ public class LoginController {
         return new Employee();
     }
 
+    @ModelAttribute("comObj")
+    public int commercialObject() {
+        return 0;
+    }
+
+
     @GetMapping
     public String showLoginPage(Model model) {
-        model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+
         return "login/loginPage";
     }
 
-    @PostMapping
-    public String login(@RequestParam("comObj") int objectId, @RequestParam("login") String login, @RequestParam("password") String pas, Model model) {
-        Employee employee = employeeService.checkAndReturnEmployeeByLoginAndPassword(login, pas);
-        if (employee == null) {
-            return "страница не существующего";
-        }
-        shiftService.checkOrOpenTheShift(employee.getId(), objectId);
+//    @GetMapping(value = "/")
+//    public String loginPagePost( Model model, Principal principal, HttpSession session) {
+//        System.out.println(principal);
+//        if (principal == null) {
+//            return "login/loginPage";
+//        }
+//        String login = principal.getName();
+//        Employee employee = employeeService.returnEmployeeByLogin(login);
+//        model.addAttribute("user", employee);
+////        System.out.println(objectId);
+//       // shiftService.checkOrOpenTheShift(employee.getId(), objectId);
+//        return "redirect:/main";
+//    }
+
+    @GetMapping("/successEnter")
+    public String successEnter( Model model, Principal principal) {
+        String login = principal.getName();
+        Employee employee = employeeService.returnEmployeeByLogin(login);
         model.addAttribute("user", employee);
+        if (shiftService.returnOpenedShiftByEmployeeId(employee.getId()) == null){
+            model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+            return "login/chooseCommercialObject";
+        } else {
+            return "redirect:/main";
+        }
+    }
+
+    @PostMapping("/openShift")
+    public String openShift(@RequestParam("comObj") int objectId, @ModelAttribute("user") Employee employee){
+        shiftService.openShift(employee.getId(), objectId);
         return "redirect:/main";
     }
+
 }

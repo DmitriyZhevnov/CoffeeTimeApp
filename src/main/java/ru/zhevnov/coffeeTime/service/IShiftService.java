@@ -7,7 +7,7 @@ import java.sql.Time;
 import java.util.List;
 
 public interface IShiftService {
-    void checkOrOpenTheShift(int idEmployee, int commercialObjectId);
+    void openShift(int idEmployee, int commercialObjectId);
     void closeShift(int idEmployee);
     Shift returnOpenedShiftByEmployeeId(int idEmployee);
     List<Shift> returnAllShifts();

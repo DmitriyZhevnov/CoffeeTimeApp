@@ -8,6 +8,7 @@ import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.entity.Product;
 import ru.zhevnov.coffeeTime.service.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class NewOrderController {
 
 
     @GetMapping()
-    public String newOrder(@RequestParam(value = "phoneNumber", required = false) String phoneNumber, Model model, @ModelAttribute("user") Employee employee) {
+    public String newOrder(HttpSession session, @RequestParam(value = "phoneNumber", required = false) String phoneNumber, Model model, @ModelAttribute("user") Employee employee) {
         model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
         model.addAttribute("basket", basketService.returnListOfProductsInBasket(employee.getId()));
         return "main/newOrder/newOrder";

@@ -5,6 +5,7 @@
   Time: 18:29
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -19,20 +20,22 @@
 </head>
 <body>
 <table border="1">
-    <form action="/report/date" method="post">
-        <p>Выберите объект:</p>
-        <p>
-            <select name="idCommercialObject">
-                <c:forEach items="${allCommercialObjects}" var="commercialObject">
-                    <option value="${commercialObject.id}">${commercialObject.address}</option>
-                </c:forEach>
-            </select>
-        </p>
-        <p>Выберите дату: </p>
-        <p> С : <input type="date" id="first" name="fromDate" onchange="copyDate()" value="${fromDate}"></p>
-        <p> По : <input type="date" id="second" name="toDate" value="${toDate}"></p>
-        <p><input type="submit" value="Просмотр"></p>
-    </form>
+    <sec:authorize access="hasRole('ADMIN')">
+        <form action="/report/date" method="post">
+            <p>Выберите объект:</p>
+            <p>
+                <select name="idCommercialObject">
+                    <c:forEach items="${allCommercialObjects}" var="commercialObject">
+                        <option value="${commercialObject.id}">${commercialObject.address}</option>
+                    </c:forEach>
+                </select>
+            </p>
+            <p>Выберите дату: </p>
+            <p> С : <input type="date" id="first" name="fromDate" onchange="copyDate()" value="${fromDate}"></p>
+            <p> По : <input type="date" id="second" name="toDate" value="${toDate}"></p>
+            <p><input type="submit" value="Просмотр"></p>
+        </form>
+    </sec:authorize>
     <tr>
         <td>Всего</td>
         <td>${report.get(0)}</td>

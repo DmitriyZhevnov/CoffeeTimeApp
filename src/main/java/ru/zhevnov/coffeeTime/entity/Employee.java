@@ -1,12 +1,15 @@
 package ru.zhevnov.coffeeTime.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,6 +26,9 @@ public class Employee {
 
     @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     private Basket basket;
+
+    @Transient
+    private final boolean isActive = true;
 
     public Employee() {
     }
@@ -58,8 +64,55 @@ public class Employee {
         this.login = login;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(role.getName()));
+        return list;
+    }
+
+    public static UserDetails fromUser(Employee employee){
+        return new org.springframework.security.core.userdetails.User(
+                employee.getLogin(), employee.getPassword(),
+                employee.isActive(),
+                employee.isActive(),
+                employee.isActive(),
+                employee.isActive(),
+                employee.getAuthorities()
+        );
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
     }
 
     public void setPassword(String password) {

@@ -33,38 +33,23 @@ public class ShiftService implements IShiftService {
 
 
     @Transactional
-    public void checkOrOpenTheShift(int idEmployee, int commercialObjectId) {
+    public void openShift(int idEmployee, int commercialObjectId) {
         Time time = new Time(System.currentTimeMillis());
         Date date = new Date(System.currentTimeMillis());
-        Shift currentShift = shiftRepository.findByEmployeeIdAndDateOpenedAndDateClosed(idEmployee, date, null);
-        if (currentShift == null) {
-            Shift shift = new Shift();
-            shift.setEmployee(employeeService.returnEmployeeById(idEmployee));
-            shift.setDateOpened(date);
-            shift.setTimeOpened(time);
-            shift.setCommercialObject(commercialObjectService.returnCommercialObjectById(commercialObjectId));
-            shiftRepository.save(shift);
-        } else {
-            if (currentShift.getCommercialObject().getId() != commercialObjectId) {
-                currentShift.setDateClosed(new Date(System.currentTimeMillis()));
-                currentShift.setTimeClosed(new Time(System.currentTimeMillis()));
-                shiftRepository.save(currentShift);
-                Shift newCurrentShift = new Shift();
-                newCurrentShift.setEmployee(employeeService.returnEmployeeById(idEmployee));
-                newCurrentShift.setDateOpened(date);
-                newCurrentShift.setTimeOpened(time);
-                newCurrentShift.setCommercialObject(commercialObjectService.returnCommercialObjectById(commercialObjectId));
-                shiftRepository.save(newCurrentShift);
-            }
-        }
+        Shift shift = new Shift();
+        shift.setEmployee(employeeService.returnEmployeeById(idEmployee));
+        shift.setDateOpened(date);
+        shift.setTimeOpened(time);
+        shift.setCommercialObject(commercialObjectService.returnCommercialObjectById(commercialObjectId));
+        shiftRepository.save(shift);
     }
 
     @Transactional
     public void closeShift(int idEmployee) {
-       Shift shift = shiftRepository.returnOpenedShiftByEmployeeId(idEmployee, new Date(System.currentTimeMillis()));
-       shift.setDateClosed(new Date(System.currentTimeMillis()));
-       shift.setTimeClosed(new Time(System.currentTimeMillis()));
-       shiftRepository.save(shift);
+        Shift shift = shiftRepository.returnOpenedShiftByEmployeeId(idEmployee, new Date(System.currentTimeMillis()));
+        shift.setDateClosed(new Date(System.currentTimeMillis()));
+        shift.setTimeClosed(new Time(System.currentTimeMillis()));
+        shiftRepository.save(shift);
     }
 
     @Transactional
@@ -128,7 +113,6 @@ public class ShiftService implements IShiftService {
             list.add(objs[3].toString());
             list.add(objs[4].toString());
         }
-        System.out.println(list);
         return list;
     }
 }

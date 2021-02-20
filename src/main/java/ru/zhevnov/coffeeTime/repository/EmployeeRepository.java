@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Employee findByLoginAndPassword(String login, String password);
+    Employee findByLogin(String login);
 }
