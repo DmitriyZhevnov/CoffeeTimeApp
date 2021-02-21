@@ -37,30 +37,21 @@ public class LoginController {
 
     @GetMapping
     public String showLoginPage(Model model) {
-
         return "login/loginPage";
     }
 
-//    @GetMapping(value = "/")
-//    public String loginPagePost( Model model, Principal principal, HttpSession session) {
-//        System.out.println(principal);
-//        if (principal == null) {
-//            return "login/loginPage";
-//        }
-//        String login = principal.getName();
-//        Employee employee = employeeService.returnEmployeeByLogin(login);
-//        model.addAttribute("user", employee);
-////        System.out.println(objectId);
-//       // shiftService.checkOrOpenTheShift(employee.getId(), objectId);
-//        return "redirect:/main";
-//    }
+    @GetMapping("/failedEnter")
+    public String failedEnter(Model model) {
+        model.addAttribute("msg", "Неверное имя пользователя или пароль");
+        return "login/loginPage";
+    }
 
     @GetMapping("/successEnter")
-    public String successEnter( Model model, Principal principal) {
+    public String successEnter(Model model, Principal principal) {
         String login = principal.getName();
         Employee employee = employeeService.returnEmployeeByLogin(login);
         model.addAttribute("user", employee);
-        if (shiftService.returnOpenedShiftByEmployeeId(employee.getId()) == null){
+        if (shiftService.returnOpenedShiftByEmployeeId(employee.getId()) == null) {
             model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
             return "login/chooseCommercialObject";
         } else {
@@ -69,9 +60,15 @@ public class LoginController {
     }
 
     @PostMapping("/openShift")
-    public String openShift(@RequestParam("comObj") int objectId, @ModelAttribute("user") Employee employee){
-        shiftService.openShift(employee.getId(), objectId);
-        return "redirect:/main";
-    }
+    public String openShift(Model model, @RequestParam(value = "comObj", required = false) String objectId, @ModelAttribute("user") Employee employee) {
+        if (objectId == null) {
+            model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+            model.addAttribute("msg", "Выберите торговый объект");
+            return "login/chooseCommercialObject";
+        } else {
+            shiftService.openShift(employee.getId(), Integer.parseInt(objectId));
+            return "redirect:/main";
 
+        }
+    }
 }

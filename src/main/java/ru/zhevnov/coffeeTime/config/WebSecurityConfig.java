@@ -35,10 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/login").permitAll()
-//                .successForwardUrl("/login/successEnter")
                 .defaultSuccessUrl("/login/successEnter", true)
+//                .failureForwardUrl("/login/failedEnter")
                 .usernameParameter("login")
                 .passwordParameter("password")
+                .failureUrl("/login/failedEnter") // default is /login?error
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
@@ -65,7 +66,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(employeeService);
         return daoAuthenticationProvider;
     }
-
-
 }
 

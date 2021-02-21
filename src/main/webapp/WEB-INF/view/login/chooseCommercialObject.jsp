@@ -1,26 +1,24 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Жевновы
-  Date: 20.02.2021
-  Time: 14:23
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
 <head>
-    <title>Title</title>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-<form action="/login/openShift" method="post">
-    <p><select size="1" name="comObj">
-        <option disabled selected>Выберите ТО</option>
-        <c:forEach items="${commercialObjects}" var="commercialobject">
-            <option value=${commercialobject.id}>${commercialobject.address}</option>
-        </c:forEach>
-    </select></p>
-    <input type="submit" value="Открыть смену">
-</form>
-
+<main class='main'>
+    <form action="/login/openShift" method="post">
+        <div class='main-data'>
+            <select class='main-data_select' size="1" name="comObj">
+                <option disabled selected>Выберите ТО</option>
+                <c:forEach items="${commercialObjects}" var="commercialobject">
+                    <option value=${commercialobject.id}>${commercialobject.address}</option>
+                </c:forEach>
+            </select>
+            <div class='main-data_error main-data_error-parametrs'>${msg}</div>
+            <button class='button' type="submit">Открыть смену</button>
+        </div>
+    </form>
+</main>
 </body>
 </html>
