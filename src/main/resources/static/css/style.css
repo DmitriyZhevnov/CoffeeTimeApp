@@ -92,6 +92,7 @@
     background-color: #f5f5f5;
 }
 
+
 .header {
     background-color: #fa8f21;
 }
@@ -112,7 +113,7 @@
     padding: 20px;
 }
 
-.user-section {
+.users-section {
     padding: 2vw;
 }
 
@@ -234,7 +235,7 @@
 }
 
 .first-section_basket-products_calc {
-    width: 10%;
+    width: 15%;
     margin: auto;
     padding: auto;
     font-family: Raleway;
@@ -277,7 +278,7 @@
     font-size: 20px;
     line-height: 18px;
     text-align: center;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 .first-section_discount {
@@ -403,4 +404,285 @@
     padding: 5px;
     margin: auto;
     padding: auto;
+}
+
+.main-menuPage {
+    height: 100vh;
+}
+
+
+.background {
+    background-color: #f5f5f5;
+    height: 100vh;
+}
+
+.main-menuPage_editProduct {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    height: auto;
+}
+
+.header-menuPage {
+    padding: 5px;
+}
+
+.menuPage {
+    display: flex;
+    width: 800px;
+    height: 90%;
+    border: 5px double #fa8f21;
+}
+
+.menuPage-section {
+    display: flex;
+    flex-direction: column;
+    border-right: 5px double #fa8f21;
+    width: 25%;
+}
+
+.reportPage-section {
+    display: flex;
+    flex-direction: column;
+    border-right: 5px double #fa8f21;
+    width: 50%;
+}
+.menuPage-report-section{
+    color: black;
+    background-color: #f5f5f5;
+    padding: 15px 0px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    height: 65px;
+}
+
+.menuPage-section-block {
+    color: white;
+    background-color: #fa8f21;
+    padding: 15px 0px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    text-align: center;
+    height: 65px;
+}
+
+.edit {
+    display: flex;
+    justify-content: space-around;
+}
+
+.menuPage-section-products {
+    color: black;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    border-radius: 4px;
+    outline: none;
+    text-align: center;
+}
+
+.menuPage-section-products_category {
+    border: none;
+    outline: none;
+    background-color: #f5f5f5;
+}
+
+.menuPage-section-products_button {
+    color: white;
+    background: #fa8f21;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    /*border-bottom: 5px double white;*/
+    text-align: center;
+}
+
+.menuPage-section-products_button-edit {
+    padding: 2px 5px;
+    border: none;
+}
+
+.menuPage-button {
+    width: 25%;
+    color: white;
+    background: #fa8f21;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 18px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    text-align: center;
+}
+
+.editProduct-second-section {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.shifts-second-section{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.addNew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border: 5px double #fa8f21;
+    width: 100%;
+}
+
+.addNew-shifts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border: 5px double #fa8f21;
+    width: 1000px;
+}
+
+.addNew-ID {
+    border: none;
+    outline: none;
+    background-color: #f5f5f5;
+    color: black;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.addNew-column {
+    flex-direction: column;
+}
+.addNew-row {
+    flex-direction: row;
+}
+.edit-comObj{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    width: 100%;
+    background: #f5f5f5;
+    border: #f5f5f5;
+}
+
+.b-container_order {
+    background: #fa8f21;
+    align-content: center;
+}
+
+/*.b-container {*/
+/*    !*width: 300px;*!*/
+/*    !*height: 300px;*!*/
+/*    !*background-color: #ccc;*!*/
+/*    !*margin: 0px auto;*!*/
+/*    !*padding: 10px;*!*/
+/*    !*font-size: 30px;*!*/
+/*    color: #000000;*/
+/*}*/
+
+.b-popup {
+    width: 100%;
+    min-height: 100%;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.b-popup .b-popup-content {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    /*align-items: center;*/
+    align-content: center;
+    margin: 70px auto 0px auto;
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #c5c5c5;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.menu-popup{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    /*align-items: center;*/
+    align-content: center;
+    margin: 70px auto 0px auto;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #c5c5c5;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.bottom-popup {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    color: white;
+    background: #fa8f21;
+    height: 40px;
+    width: 100%;
+}
+
+.href-popup {
+    width: 100%;
+    align-content: center;
+    color: #db7d36;
 }

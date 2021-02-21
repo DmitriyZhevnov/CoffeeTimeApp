@@ -1,61 +1,89 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Жевновы
-  Date: 09.02.2021
-  Time: 13:06
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
-
+<%--<sec:authorize access="hasRole('ADMIN')">--%>
+<%--</sec:authorize>--%>
+<!DOCTYPE html>
 <head>
-    <title>orders</title>
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-<body>
-<sec:authorize access="hasRole('ADMIN')">
-    <form action="/closedOrders/date" method="post">
-        <p>Выберите объект:</p>
-        <p>
-            <select name="idCommercialObject">
-                <c:forEach items="${allCommercialObjects}" var="commercialObject">
-                    <option value="${commercialObject.id}">${commercialObject.address}</option>
-                </c:forEach>
-            </select>
-        </p>
-        <p>Выберите дату: </p>
-        <p><input type="date" name="date" value="${date}"></p>
-        <p><input type="submit" value="Просмотр"></p>
-    </form>
-</sec:authorize>
 
-<table border="1">
-    <tr>
-        <th>Время</th>
-        <th>Итоговая сумма</th>
-        <sec:authorize access="hasRole('ADMIN')">
-            <th>Сотрудник</th>
-            <th>Информация</th>
-        </sec:authorize>
-        <th></th>
-    </tr>
-    <c:forEach items="${orders}" var="order">
-        <tr>
-            <td>${order.time}</td>
-            <td>${order.cardAmount + order.cashAmount}</td>
-            <sec:authorize access="hasRole('ADMIN')">
-                <td>${order.shift.employee.name}</td>
-                <td>${order.info}</td>
-            </sec:authorize>
-            <td>
-                <form action="/closedOrders/${order.id}" method="get">
-                    <p><input type="submit" value="Инфо"></p>
+<body>
+<div class='background'>
+    <header class='header header-menuPage'>
+        <div class='header-data header-menuPage'>
+            <div class='header-data_user header-menuPage'>
+                <a href="/main">Назад</a>
+            </div>
+        </div>
+    </header>
+    <div class='editProduct-second-section'>
+        <div class='error'>Ошибка: данные введены некорректно</div>
+        <div class='main main-menuPage main-menuPage_editProduct'>
+            <div class='addNew addNew-column'>
+                <form action="/closedOrders/date" method="post">
+                    <div>
+                        <select class='addNew-ID' name="idCommercialObject">
+                            <c:forEach items="${allCommercialObjects}" var="commercialObject">
+                                <option value="${commercialObject.id}">${commercialObject.address}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div><input type="date" class='addNew-ID' name="date" value="${date}"></div>
+                    <div>
+                        <button type="submit" style="color:#fa8f21" class='addNew-ID'>Просмотр</button>
+                    </div>
                 </form>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
-<a href="/main">Назад</a>
+            </div>
+            <div class='menuPage'>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Время</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Итоговая сумма</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Сотрудник</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Информация</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'></div>
+                </div>
+            </div>
+        </div>
+        <c:forEach items="${orders}" var="order">
+            <div class='menuPage'>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>${order.time}</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>${order.cardAmount + order.cashAmount}</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>${order.shift.employee.name}</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='edit'>${order.info}</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='edit'>
+                        <form action="/closedOrders/${order.id}" method="get">
+                            <button
+                                    type="submit"
+                                    class='menuPage-section-products_button menuPage-section-products_button-edit'>Инфо
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+</div>
 </body>
 </html>
+
+

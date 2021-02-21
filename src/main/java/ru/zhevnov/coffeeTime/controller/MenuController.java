@@ -34,7 +34,7 @@ public class MenuController {
         Product product = productService.returnProductById(idProduct);
         model.addAttribute("product", product);
         model.addAttribute("composition", product.getComposition());
-        model.addAttribute("items", itemService.returnAllItems());
+            model.addAttribute("items", itemService.returnAllItems());
         return "main/menu/editProduct";
     }
 
