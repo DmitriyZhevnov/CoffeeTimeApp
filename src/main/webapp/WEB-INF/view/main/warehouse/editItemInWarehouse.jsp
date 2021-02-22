@@ -1,35 +1,69 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Жевновы
-  Date: 15.02.2021
-  Time: 17:42
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>report</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-<form action="/warehouse/${item.id}" method="post">
-    <table>
-        <tr>
-            <th>Название</th>
-            <th>Количество</th>
-            <th>Единица измерения</th>
-        </tr>
-        <tr>
-            <td><input type="text" value="${item.name}" name="itemName"></td>
-            <td><input type="text" value="${item.quantityInWarehouse}" name="itemQuantity"></td>
-            <td><input type="text" value="${item.measure}" name="itemMeasure"></td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <input type="submit" value="Сохранить изменения">
-            </td>
-        </tr>
-    </table>
-</form>
-<a href="/warehouse">Назад</a>
+<div class='background'>
+    <header class='header header-menuPage'>
+        <div class='header-data header-menuPage'>
+            <div class='header-data_user header-menuPage'>
+                <a href="/warehouse">Назад</a>
+            </div>
+        </div>
+    </header>
+
+    <div class='editProduct-second-section'>
+        <div class='error'>Ошибка: данные введены некорректно</div>
+        <div class='main main-menuPage main-menuPage_editProduct'>
+            <div class='menuPage'>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Название</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Количество</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'>Единица измерения</div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'></div>
+                </div>
+            </div>
+        </div>
+        <form action="/warehouse/${item.id}" method="post">
+            <div class='menuPage'>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>
+                        <input class="edit-comObj" type="text" value="${item.name}" name="itemName">
+                    </div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>
+                        <input class="edit-comObj" type="text" value="${item.quantityInWarehouse}" name="itemQuantity">
+                    </div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-products'>
+                        <input class="edit-comObj" type="text" value="${item.measure}" name="itemMeasure">
+                    </div>
+                </div>
+                <div class='menuPage-section'>
+                    <div class='edit'>
+                        <form action="/warehouse/${item.id}" method="get">
+                            <button
+                                    type="submit"
+                                    class='menuPage-section-products_button menuPage-section-products_button-edit'>
+                                Сохранить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
