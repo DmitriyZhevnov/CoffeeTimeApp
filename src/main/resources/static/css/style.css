@@ -413,7 +413,7 @@
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease-out;
-    padding: 0px 65px 0px 65px;
+    width: 90%;
 }
 
 .products-price {

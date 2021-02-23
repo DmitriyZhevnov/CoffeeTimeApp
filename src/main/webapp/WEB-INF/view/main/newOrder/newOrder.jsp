@@ -97,27 +97,36 @@
                     <div class="b-popup-content">
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="cash">
-                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.cash"/>></p>
+                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.cash"/>>
+                            </p>
                         </form>
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="card">
-                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.card"/>></p>
+                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.card"/>>
+                            </p>
                         </form>
                         <p align="center"><a class="href-popup" href="javascript:PopUpDifferentTypeOfPaymentShow()">
                             <spring:message code="newOrder.different"/>
                         </a></p>
-                        <p align="center"><a class="href-popup" href="javascript:PopUpPayHide()"><spring:message code="newOrder.back"/></a></p>
+                        <p align="center"><a class="href-popup" href="javascript:PopUpPayHide()"><spring:message
+                                code="newOrder.back"/></a></p>
                     </div>
                 </div>
                 <div class="b-popup" id="popup3">
                     <div class="b-popup-content">
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="different">
-                            <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount" oninput="subForFirst()"
-                                                                 cols="15" rows="1">${totalCost}</textarea></p>
-                            <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second" oninput="subForSecond()" name="cardAmount"
-                                                              cols="15"
-                                                              rows="1"></textarea></p>
+                            <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first"
+                                                                                               name="cashAmount"
+                                                                                               oninput="subForFirst()"
+                                                                                               cols="15"
+                                                                                               rows="1">${totalCost}</textarea>
+                            </p>
+                            <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second"
+                                                                                               oninput="subForSecond()"
+                                                                                               name="cardAmount"
+                                                                                               cols="15"
+                                                                                               rows="1"></textarea></p>
                             <p><input class="bottom-popup" type="submit" value=
                             <spring:message code="newOrder.pay"/>></p>
                         </form>
@@ -137,7 +146,8 @@
                 </div>
                 <form action='/newOrder/makeDiscount' method='post'>
                     <div class='first-section_discount'>
-                        <div><input class='first-section_discount-input' type="text" placeholder="<spring:message code="newOrder.phoneNumber"/>"
+                        <div><input class='first-section_discount-input' type="text"
+                                    placeholder="<spring:message code="newOrder.phoneNumber"/>"
                                     name="phoneNumber" value="${phoneNumber}"></div>
                         <div>
                             <button class='first-section_discount-button'>
@@ -151,22 +161,22 @@
         </div>
         <div class='second-section'>
             <c:forEach items="${coffees}" var="product">
-                <div class='products'>
-                    <form action='/newOrder/add/${product.id}' method='get'>
+                <form action='/newOrder/add/${product.id}' method='get'>
+                    <div class='products'>
                         <button class='products-button'>${product.name}</button>
-                    </form>
-                    <div class='products-price'>${product.price}</div>
-                </div>
+                        <div class='products-price'>${product.price}</div>
+                    </div>
+                </form>
             </c:forEach>
         </div>
         <div class='third-section'>
             <c:forEach items="${additions}" var="product">
-                <div class='products'>
-                    <form action='/newOrder/add/${product.id}' method='get'>
+                <form action='/newOrder/add/${product.id}' method='get'>
+                    <div class='products'>
                         <button class='products-button' type="submit">${product.name}</button>
-                    </form>
-                    <div class='products-price'>${product.price}</div>
-                </div>
+                        <div class='products-price'>${product.price}</div>
+                    </div>
+                </form>
             </c:forEach>
         </div>
         <div class='fouth-section'>
@@ -196,11 +206,14 @@
 <div class="b-popup" id="popup2">
     <div class="b-popup-content">
         <form action="/newOrder/newClient" method="post">
-            <p align="right"><spring:message code="newOrder.name"/>: <textarea name="name" cols="20" rows="1"></textarea></p>
-            <p align="right"><spring:message code="newOrder.phone"/>: <textarea name="pNumber" cols="20" rows="1"></textarea></p>
+            <p align="right"><spring:message code="newOrder.name"/>: <textarea name="name" cols="20"
+                                                                               rows="1"></textarea></p>
+            <p align="right"><spring:message code="newOrder.phone"/>: <textarea name="pNumber" cols="20"
+                                                                                rows="1"></textarea></p>
             <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.register"/>></p>
         </form>
-        <p align="center"><a class="href-popup" href="javascript:PopUpNewUserHide()"><spring:message code="newOrder.back"/></a></p>
+        <p align="center"><a class="href-popup" href="javascript:PopUpNewUserHide()"><spring:message
+                code="newOrder.back"/></a></p>
     </div>
 </div>
 </body>

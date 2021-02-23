@@ -24,6 +24,7 @@
         </div>
     </div>
 </header>
+<br/>
 <div class="user-section">
     <sec:authorize access="hasRole('ADMIN')">
         <div id="grid-admin">
