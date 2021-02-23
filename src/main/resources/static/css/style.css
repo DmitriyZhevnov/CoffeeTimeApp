@@ -13,6 +13,13 @@
     height: 100vh;
     background-color: #f5f5f5;
 }
+.main-choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    background-color: #f5f5f5;
+}
 
 .main-data {
     display: flex;
@@ -25,6 +32,7 @@
     padding: 40px;
     border: 3px solid #db7d36;
 }
+
 
 .main-data_personal input {
     width: 100%;
@@ -96,6 +104,9 @@
 .header {
     background-color: #fa8f21;
 }
+.header_choose{
+    background-color: #f5f5f5;
+}
 
 .header-data {
     display: flex;
@@ -111,6 +122,11 @@
     font-size: 20px;
     line-height: 18px;
     padding: 20px;
+}
+.header-data_user_img {
+    color: white;
+
+    line-height: 18px;
 }
 
 .users-section {
@@ -425,6 +441,12 @@
 
 .header-menuPage {
     padding: 5px;
+}
+.round {
+    border-radius: 100px;
+    border: 3px #666;
+    box-shadow: 0 0 7px #666;
+    margin: 6px;
 }
 
 .menuPage {

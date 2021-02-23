@@ -1,6 +1,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <script>
     function copyDate() {
@@ -9,7 +10,7 @@
     }
 </script>
 <head>
-    <title>report</title>
+    <title><spring:message code="report.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -23,30 +24,34 @@
     </header>
     <div class='editProduct-second-section'>
         <div class='main main-menuPage main-menuPage_editProduct'>
-            <div class='addNew addNew-column'>
-                <form action="/report/date" method="post">
-                    <div>
-                        <select class='addNew-ID' name="idCommercialObject">
-                            <c:forEach items="${allCommercialObjects}" var="commercialObject">
-                                <option value="${commercialObject.id}">${commercialObject.address}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div>с: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
-                                   value="${fromDate}"></div>
-                    <div>по: <input type="date" class='addNew-ID' id="second" name="toDate" value="${toDate}"></div>
-                    <div>
-                        <button type="submit" style="color:#fa8f21" class='addNew-ID'>Просмотр</button>
-                    </div>
-                </form>
-            </div>
+            <sec:authorize access="hasRole('ADMIN')">
+                <div class='addNew addNew-column'>
+                    <form action="/report/date" method="post">
+                        <div>
+                            <select class='addNew-ID' name="idCommercialObject">
+                                <c:forEach items="${allCommercialObjects}" var="commercialObject">
+                                    <option value="${commercialObject.id}">${commercialObject.address}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
+                                       value="${fromDate}"></div>
+                        <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second" name="toDate" value="${toDate}"></div>
+                        <div>
+                            <button type="submit" style="color:#fa8f21" class='addNew-ID'>
+                                <spring:message code="view"/>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </sec:authorize>
             <div class='reportPage'>
                 <div class='reportPage-section'>
-                    <div class='menuPage-section-block'>Всего</div>
-                    <div class='menuPage-section-block'>Наличные</div>
-                    <div class='menuPage-section-block'>Безналичные</div>
-                    <div class='menuPage-section-block'>Чеков</div>
-                    <div class='menuPage-section-block'>Отменено чеков</div>
+                    <div class='menuPage-section-block'><spring:message code="report.total"/></div>
+                    <div class='menuPage-section-block'><spring:message code="newOrder.cash"/></div>
+                    <div class='menuPage-section-block'><spring:message code="newOrder.card"/></div>
+                    <div class='menuPage-section-block'><spring:message code="report.checks"/></div>
+                    <div class='menuPage-section-block'><spring:message code="report.canceledChecks"/></div>
                 </div>
                 <div class='reportPage-section'>
                     <div class='menuPage-report-section'>${report.get(0)}</div>

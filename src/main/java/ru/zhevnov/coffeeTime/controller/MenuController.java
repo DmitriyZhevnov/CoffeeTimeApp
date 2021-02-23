@@ -34,17 +34,21 @@ public class MenuController {
         Product product = productService.returnProductById(idProduct);
         model.addAttribute("product", product);
         model.addAttribute("composition", product.getComposition());
-            model.addAttribute("items", itemService.returnAllItems());
+        model.addAttribute("items", itemService.returnAllItems());
         return "main/menu/editProduct";
     }
 
     @PostMapping("/update")
     public String updateProduct(@ModelAttribute("user") Employee employee, Model model,
                                 @RequestParam("productId") int productId, @RequestParam("productName") String productName,
-                                @RequestParam("productPrice") String productPrice, @RequestParam("idCategory") int categoryId) {
+                                @RequestParam("productPrice") String productPrice, @RequestParam("idCategory") String categoryId) {
+
         try {
-            productService.updateProductWithNewData(productId, productName, Double.parseDouble(productPrice), categoryId);
-        } catch (NumberFormatException e) {}
+            if (!categoryId.isEmpty()) {
+                productService.updateProductWithNewData(productId, productName, Double.parseDouble(productPrice), Integer.parseInt(categoryId));
+            }
+        } catch (NumberFormatException e) {
+        }
         return "redirect:/menu/" + productId;
     }
 
@@ -53,7 +57,8 @@ public class MenuController {
                                     @RequestParam("productId") int productId) {
         try {
             productService.updateCompositionOfProduct(compositionId, Double.parseDouble(quantityOfItem));
-        } catch (NumberFormatException e) { }
+        } catch (NumberFormatException e) {
+        }
         return "redirect:/menu/" + productId;
     }
 
@@ -66,22 +71,23 @@ public class MenuController {
 
     @PostMapping("/{idProduct}/removeItem")
     public String removeItemFromProduct(@PathVariable(name = "idProduct") int idProduct,
-                                        @RequestParam("compositionId") int idComposition, Model model){
+                                        @RequestParam("compositionId") int idComposition, Model model) {
         productService.removeItemFromProduct(idProduct, idComposition);
         return "redirect:/menu/" + idProduct;
     }
 
     @PostMapping("/newItem")
     public String saveNewItem(@RequestParam("idProduct") int idProduct, @RequestParam("name") String itemName,
-                              @RequestParam("measure") String itemMeasure, @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse){
-        try{
+                              @RequestParam("measure") String itemMeasure, @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse) {
+        try {
             itemService.addNewItem(itemName, itemMeasure, Double.parseDouble(itemQuantityInWarehouse));
-        } catch (NumberFormatException e){}
+        } catch (NumberFormatException e) {
+        }
         return "redirect:/menu/" + idProduct;
     }
 
     @GetMapping("/newProduct")
-    public String newProduct(){
+    public String newProduct() {
         return "redirect:/menu/" + productService.returnNewProduct().getId();
     }
 }

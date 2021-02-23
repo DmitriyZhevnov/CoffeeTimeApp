@@ -7,6 +7,7 @@ import ru.zhevnov.coffeeTime.repository.ClientRepository;
 import ru.zhevnov.coffeeTime.service.IClientService;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @Service
 public class ClientService implements IClientService {
@@ -15,9 +16,15 @@ public class ClientService implements IClientService {
     private ClientRepository clientRepository;
 
     @Transactional
-    public void registerNewClient(String name, String phoneNumber) {
-        clientRepository.save(new Client(name, phoneNumber, 1));
+    public boolean registerNewClient(String name, String phoneNumber) {
+        if (clientRepository.getByPhoneNumber(phoneNumber) == null) {
+            clientRepository.save(new Client(name, phoneNumber, 1));
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     @Override
     public Client returnClientByPhoneNumber(String phoneNumber) {

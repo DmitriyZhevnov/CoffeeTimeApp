@@ -1,9 +1,14 @@
 package ru.zhevnov.coffeeTime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
 import ru.zhevnov.coffeeTime.service.IEmployeeService;
@@ -11,6 +16,8 @@ import ru.zhevnov.coffeeTime.service.IShiftService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @RequestMapping("/login")
@@ -23,6 +30,9 @@ public class LoginController {
     private ICommercialObjectService commercialObjectService;
     @Autowired
     private IShiftService shiftService;
+    @Autowired
+    private MessageSource messageSource;
+
 
     @ModelAttribute("user")
     public Employee newEmployee() {
@@ -59,11 +69,20 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/openShift")
+    @GetMapping("/openShift")
     public String openShift(Model model, @RequestParam(value = "comObj", required = false) String objectId, @ModelAttribute("user") Employee employee) {
+        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"}, LocaleContextHolder.getLocale());
+        model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+        model.addAttribute("msg", errorMessage);
+        return "login/chooseCommercialObject";
+    }
+
+    @PostMapping("/openShift")
+    public String openShiftPost(Model model, @RequestParam(value = "comObj", required = false) String objectId, @ModelAttribute("user") Employee employee) {
+        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"}, LocaleContextHolder.getLocale());
         if (objectId == null) {
             model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
-            model.addAttribute("msg", "Выберите торговый объект");
+            model.addAttribute("msg", errorMessage);
             return "login/chooseCommercialObject";
         } else {
             shiftService.openShift(employee.getId(), Integer.parseInt(objectId));

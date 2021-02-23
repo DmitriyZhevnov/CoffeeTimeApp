@@ -1,10 +1,8 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.*;
-import ru.zhevnov.coffeeTime.repository.EmployeeRepository;
 import ru.zhevnov.coffeeTime.repository.OrderRepository;
 import ru.zhevnov.coffeeTime.service.*;
 

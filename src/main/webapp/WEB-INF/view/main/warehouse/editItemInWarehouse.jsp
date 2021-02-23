@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <title>report</title>
+    <title><spring:message code="warehouse.editItemWarehouseTitle"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -10,23 +11,22 @@
     <header class='header header-menuPage'>
         <div class='header-data header-menuPage'>
             <div class='header-data_user header-menuPage'>
-                <a href="/warehouse">Назад</a>
+                <a href="/warehouse"><spring:message code="back"/></a>
             </div>
         </div>
     </header>
 
     <div class='editProduct-second-section'>
-        <div class='error'>Ошибка: данные введены некорректно</div>
         <div class='main main-menuPage main-menuPage_editProduct'>
             <div class='menuPage'>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Название</div>
+                    <div class='menuPage-section-block'><spring:message code="name"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Количество</div>
+                    <div class='menuPage-section-block'><spring:message code="count"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Единица измерения</div>
+                    <div class='menuPage-section-block'><spring:message code="measure"/></div>
                 </div>
                 <div class='menuPage-section'>
                     <div class='menuPage-section-block'></div>
@@ -56,7 +56,7 @@
                             <button
                                     type="submit"
                                     class='menuPage-section-products_button menuPage-section-products_button-edit'>
-                                Сохранить
+                                <spring:message code="save"/>
                             </button>
                         </form>
                     </div>

@@ -1,11 +1,12 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
-    <title>Document</title>
+    <title>Coffee Time</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
+<title>Coffee Time</title>
 <main class='main'>
     <form action="/login" method="post" modelAttribute="user">
         <div class="main-data">

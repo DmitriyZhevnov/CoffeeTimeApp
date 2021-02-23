@@ -1,5 +1,8 @@
 package ru.zhevnov.coffeeTime.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +20,7 @@ public class CommercialObject {
     @OneToMany(mappedBy = "commercialObject", fetch = FetchType.LAZY)
     private Set<Shift> shifts = new HashSet<>();
     @OneToMany(mappedBy = "commercialObject", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CommercialObjectQuantityOfItems> commercialObjectQuantityOfItems = new ArrayList<>();
 
     public CommercialObject() {

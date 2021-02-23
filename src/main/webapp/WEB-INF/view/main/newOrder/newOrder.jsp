@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
@@ -48,9 +49,9 @@
 </script>
 
 <head>
-    <title>Document</title>
+    <title><spring:message code="newOrder.title"/></title>
     <%--    <script type="text/javascript" src="/js/functions.js"></script>--%>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
+    <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -78,55 +79,74 @@
                 </div>
             </c:forEach>
             <div class='bomba'>
-                <div class='first-section_href'><a href="/main">Назад</a></div>
-                <div class='first-section_href'><a href="javascript:PopUpNewUserShow()">Новый клиент</a></div>
-                <div class='first-section_href'><a href="javascript:PopUpPayShow()">Оплатить</a></div>
+                <div class='first-section_href'><a href="/main">
+                    <spring:message code="newOrder.back"/>
+                </a></div>
+                <div class='first-section_href'>
+                    <a href="javascript:PopUpNewUserShow()">
+                        <spring:message code="newOrder.newClient"/>
+                    </a>
+                </div>
+                <div class='first-section_href'>
+                    <a href="javascript:PopUpPayShow()">
+                        <spring:message code="newOrder.pay"/>
+                    </a>
+                </div>
 
                 <div class="b-popup" id="popup1">
                     <div class="b-popup-content">
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="cash">
-                            <p><input class="bottom-popup" type="submit" value=Наличные></p>
+                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.cash"/>></p>
                         </form>
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="card">
-                            <p><input class="bottom-popup" type="submit" value=Безналичные></p>
+                            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.card"/>></p>
                         </form>
-                        <p align="center"><a class="href-popup" href="javascript:PopUpDifferentTypeOfPaymentShow()">Раздельный тип
-                            оплаты</a></p>
-                        <p align="center"><a class="href-popup" href="javascript:PopUpPayHide()">Назад</a></p>
+                        <p align="center"><a class="href-popup" href="javascript:PopUpDifferentTypeOfPaymentShow()">
+                            <spring:message code="newOrder.different"/>
+                        </a></p>
+                        <p align="center"><a class="href-popup" href="javascript:PopUpPayHide()"><spring:message code="newOrder.back"/></a></p>
                     </div>
                 </div>
                 <div class="b-popup" id="popup3">
                     <div class="b-popup-content">
                         <form action="/newOrder/pay" method="post">
                             <input type="hidden" name="paymentType" value="different">
-                            <p align="right">Наличные: <textarea id="first" name="cashAmount" oninput="subForFirst()"
+                            <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount" oninput="subForFirst()"
                                                                  cols="15" rows="1">${totalCost}</textarea></p>
-                            <p align="right">Карты: <textarea id="second" oninput="subForSecond()" name="cardAmount"
+                            <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second" oninput="subForSecond()" name="cardAmount"
                                                               cols="15"
                                                               rows="1"></textarea></p>
-                            <p><input class="bottom-popup" type="submit" value=Оплатить></p>
+                            <p><input class="bottom-popup" type="submit" value=
+                            <spring:message code="newOrder.pay"/>></p>
                         </form>
-                        <p align="center"><a class="href-popup" href="javascript:PopUpDifferentTypeOfPaymentHide()">Назад</a></p>
+                        <p align="center"><a class="href-popup" href="javascript:PopUpDifferentTypeOfPaymentHide()">
+                            <spring:message code="newOrder.back"/>
+                        </a>
+                        </p>
                     </div>
                 </div>
 
 
                 <div class='bomba-pay'>
-                    <div class='first-section_total-cost'>Итого к оплате:</div>
+                    <div class='first-section_total-cost'>
+                        <spring:message code="newOrder.totalCost"/>:
+                    </div>
                     <div class="first-section_total-cost">${totalCost}</div>
                 </div>
                 <form action='/newOrder/makeDiscount' method='post'>
                     <div class='first-section_discount'>
-                        <div><input class='first-section_discount-input' type="text" placeholder="Номер телефона"
+                        <div><input class='first-section_discount-input' type="text" placeholder="<spring:message code="newOrder.phoneNumber"/>"
                                     name="phoneNumber" value="${phoneNumber}"></div>
                         <div>
-                            <button class='first-section_discount-button'>Применить скидку</button>
+                            <button class='first-section_discount-button'>
+                                <spring:message code="newOrder.makeDiscount"/>
+                            </button>
                         </div>
                     </div>
                 </form>
-                <div class='error'>Ошибка: данные введены некорректно</div>
+                <div class='error'>${msg}</div>
             </div>
         </div>
         <div class='second-section'>
@@ -152,7 +172,6 @@
         <div class='fouth-section'>
             <div class='fouth-section_drinks'>
                 <c:forEach items="${drinks}" var="product">
-
                     <div class='products'>
                         <form action='/newOrder/add/${product.id}' method='get'>
                             <button class='products-button' type="submit">${product.name}</button>
@@ -177,11 +196,11 @@
 <div class="b-popup" id="popup2">
     <div class="b-popup-content">
         <form action="/newOrder/newClient" method="post">
-            <p align="right">Имя: <textarea name="name" cols="20" rows="1"></textarea></p>
-            <p align="right">Телефон: <textarea name="pNumber" cols="20" rows="1"></textarea></p>
-            <p><input class="bottom-popup" type="submit" value=Зарегистрировать></p>
+            <p align="right"><spring:message code="newOrder.name"/>: <textarea name="name" cols="20" rows="1"></textarea></p>
+            <p align="right"><spring:message code="newOrder.phone"/>: <textarea name="pNumber" cols="20" rows="1"></textarea></p>
+            <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.register"/>></p>
         </form>
-        <p align="center"><a class="href-popup" href="javascript:PopUpNewUserHide()">Назад</a></p>
+        <p align="center"><a class="href-popup" href="javascript:PopUpNewUserHide()"><spring:message code="newOrder.back"/></a></p>
     </div>
 </div>
 </body>

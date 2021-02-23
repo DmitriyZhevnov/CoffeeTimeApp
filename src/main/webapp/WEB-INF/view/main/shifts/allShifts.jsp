@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<sec:authorize access="hasRole('ADMIN')">--%>
-<%--</sec:authorize>--%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <head>
-    <title>Document</title>
+    <title><spring:message code="shifts.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <script>
@@ -18,7 +17,9 @@
     <header class='header header-menuPage'>
         <div class='header-data header-menuPage'>
             <div class='header-data_user header-menuPage'>
-                <a href="/main">Назад</a>
+                <a href="/main">
+                    <spring:message code="back"/>
+                </a>
             </div>
 
             <div class='header-data_user header-menuPage'>
@@ -27,7 +28,6 @@
         </div>
     </header>
     <div class='shifts-second-section'>
-        <div class='error'>Ошибка: данные введены некорректно</div>
         <div class='main main-menuPage main-menuPage_editProduct'>
             <div class='addNew-shifts addNew-column'>
                 <form action="/shifts/date" method="post">
@@ -38,32 +38,32 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <div>с: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
+                    <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
                                    value="${fromDate}"></div>
-                    <div>по: <input type="date" class='addNew-ID' id="second" name="toDate" value="${toDate}"></div>
+                    <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second" name="toDate" value="${fromDate}"></div>
                     <div>
-                        <button type="submit" style="color:#fa8f21" class='addNew-ID'>Показать</button>
+                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message code="view"/></button>
                     </div>
                 </form>
             </div>
             <div style="width: 1000px" class='menuPage'>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Торговый объект</div>
+                    <div class='menuPage-section-block'><spring:message code="shifts.tradingObject"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Дата открытия</div>
+                    <div class='menuPage-section-block'><spring:message code="shifts.dateOpened"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Время открытия</div>
+                    <div class='menuPage-section-block'><spring:message code="shifts.timeOpened"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Дата закрытия</div>
+                    <div class='menuPage-section-block'><spring:message code="shifts.dateClosed"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Время закрытия</div>
+                    <div class='menuPage-section-block'><spring:message code="shifts.timeClosed"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Сотрудник</div>
+                    <div class='menuPage-section-block'><spring:message code="employee"/></div>
                 </div>
                 <div class='menuPage-section'>
                     <div class='menuPage-section-block'></div>
@@ -96,7 +96,7 @@
                             <button
                                     type="submit"
                                     class='menuPage-section-products_button menuPage-section-products_button-edit'>
-                                Редактировать
+                                <spring:message code="edit"/>
                             </button>
                         </form>
                     </div>
@@ -108,9 +108,6 @@
 </div>
 </body>
 </html>
-
-
-
 
 
 

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 
 <head>
-    <title>Document</title>
+    <title><spring:message code="menu"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -11,7 +12,7 @@
     <header class='header header-menuPage'>
         <div class='header-data header-menuPage'>
             <div class='header-data_user header-menuPage'>
-                <a href="/main">Назад</a>
+                <a href="/main"><spring:message code="back"/></a>
             </div>
         </div>
     </header>
@@ -23,19 +24,19 @@
                             style="color: white"
                             type="submit"
                             class='menuPage-section-products_button menuPage-section-products_button-edit'>
-                        Добавить новый товар
+                        <spring:message code="menu.addNewProduct"/>
                     </button>
                 </form>
             </div>
             <div class='menuPage'>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Название</div>
+                    <div class='menuPage-section-block'><spring:message code="name"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Цена</div>
+                    <div class='menuPage-section-block'><spring:message code="price"/></div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'>Категория</div>
+                    <div class='menuPage-section-block'><spring:message code="category"/></div>
                 </div>
                 <div class='menuPage-section'>
                     <div class='menuPage-section-block'></div>
@@ -59,7 +60,7 @@
                             <button
                                     type="submit"
                                     class='menuPage-section-products_button menuPage-section-products_button-edit'>
-                                Изменить
+                                <spring:message code="change"/>
                             </button>
                         </form>
                     </div>
@@ -67,7 +68,6 @@
             </div>
         </c:forEach>
     </div>
-</div>
 </div>
 </body>
 </html>

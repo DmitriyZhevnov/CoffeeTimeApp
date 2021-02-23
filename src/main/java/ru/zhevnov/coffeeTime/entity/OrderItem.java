@@ -1,4 +1,7 @@
 package ru.zhevnov.coffeeTime.entity;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +17,7 @@ public class OrderItem {
     private int quantity;
 
     @ManyToMany(mappedBy = "orderItems", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Product> products;
 
     public OrderItem() {

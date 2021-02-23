@@ -3,10 +3,8 @@ package ru.zhevnov.coffeeTime.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.*;
-import ru.zhevnov.coffeeTime.repository.CommercialObjectItemQuantityRepository;
 import ru.zhevnov.coffeeTime.repository.CommercialObjectRepository;
 import ru.zhevnov.coffeeTime.repository.EmployeeRepository;
-import ru.zhevnov.coffeeTime.repository.ShiftRepository;
 import ru.zhevnov.coffeeTime.service.ICommercialObjectQuantityOfItemsService;
 import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
 import ru.zhevnov.coffeeTime.service.IOrderService;
@@ -41,7 +39,7 @@ public class CommercialObjectService implements ICommercialObjectService {
     }
 
     @Transactional
-    public void submitItemsFromCommercialObjectsStorage(int idEmployee) {
+    public void submitItemsFromCommercialObjectsStorage(int idEmployee) throws IndexOutOfBoundsException {
         Employee employee = employeeRepository.getOne(idEmployee);
         Shift shift = shiftService.returnOpenedShiftByEmployeeId(employee.getId());
         CommercialObject cObject = shift.getCommercialObject();

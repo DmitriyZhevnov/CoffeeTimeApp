@@ -1,6 +1,8 @@
 package ru.zhevnov.coffeeTime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +25,15 @@ public class ShiftController {
     private IShiftService shiftService;
     @Autowired
     private ICommercialObjectService commercialObjectService;
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping()
     public String showAllShifts(@ModelAttribute("user") Employee employee, Model model) {
         model.addAttribute("allEmployees", employeeService.returnAllEmployees());
         model.addAttribute("shifts", shiftService.returnAllShifts());
         model.addAttribute("totalTime", null);
+        model.addAttribute("fromDate", new Date(System.currentTimeMillis()));
         return "main/shifts/allShifts";
     }
 
@@ -41,7 +46,8 @@ public class ShiftController {
         model.addAttribute("shifts", shiftService.returnShiftsByEmployeeIdAndDate(idEmployee, fromDate, toDate));
         model.addAttribute("allEmployees", employeeService.returnAllEmployees());
         model.addAttribute("allCommercialObjects", commercialObjectService.returnAllCommercialObjects());
-        model.addAttribute("totalTime", "Всего часов: " + shiftService.returnTotalTimeOfShiftsByEmployeeIdAndDate(idEmployee, fromDate, toDate));
+        String totalHours = messageSource.getMessage("shifts.totalHours", new Object[]{"shifts.totalHours"}, LocaleContextHolder.getLocale());
+        model.addAttribute("totalTime", totalHours + shiftService.returnTotalTimeOfShiftsByEmployeeIdAndDate(idEmployee, fromDate, toDate));
         return "main/shifts/allShifts";
     }
 

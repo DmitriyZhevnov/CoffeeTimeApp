@@ -12,7 +12,7 @@ public class Basket {
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-//
+
     @OneToMany (mappedBy="basket", fetch = FetchType.LAZY)
     private List<BasketItem> basketItems;
 
