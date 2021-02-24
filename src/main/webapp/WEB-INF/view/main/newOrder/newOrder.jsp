@@ -170,7 +170,7 @@
             </c:forEach>
         </div>
         <div class='third-section'>
-            <c:forEach items="${additions}" var="product">
+            <c:forEach items="${drinks}" var="product">
                 <form action='/newOrder/add/${product.id}' method='get'>
                     <div class='products'>
                         <button class='products-button' type="submit">${product.name}</button>
@@ -181,23 +181,23 @@
         </div>
         <div class='fouth-section'>
             <div class='fouth-section_drinks'>
-                <c:forEach items="${drinks}" var="product">
-                    <div class='products'>
-                        <form action='/newOrder/add/${product.id}' method='get'>
+                <c:forEach items="${additions}" var="product">
+                    <form action='/newOrder/add/${product.id}' method='get'>
+                        <div class='products'>
                             <button class='products-button' type="submit">${product.name}</button>
-                        </form>
-                        <div class='products-price'>${product.price}</div>
-                    </div>
+                            <div class='products-price'>${product.price}</div>
+                        </div>
+                    </form>
                 </c:forEach>
             </div>
             <div class='fouth-section_bars'>
                 <c:forEach items="${bars}" var="product">
-                    <div class='products'>
-                        <form action='/newOrder/add/${product.id}' method='get'>
+                    <form action='/newOrder/add/${product.id}' method='get'>
+                        <div class='products'>
                             <button class='products-button' type="submit">${product.name}</button>
-                        </form>
-                        <div class='products-price'>${product.price}</div>
-                    </div>
+                            <div class='products-price'>${product.price}</div>
+                        </div>
+                    </form>
                 </c:forEach>
             </div>
         </div>

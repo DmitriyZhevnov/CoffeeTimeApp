@@ -78,8 +78,10 @@ public class WarehouseController {
 
     @PostMapping("/commercialObject/{idCommercialObject}/addItem")
     public String addItemToCommercialObject(@PathVariable("idCommercialObject") int idCommercialObject,
-                                            @RequestParam("idItem") int idItem){
-        commercialObjectQuantityOfItemsService.addItemInCommercialObjectWarehouse(idCommercialObject, idItem);
+                                            @RequestParam(value = "idItem", required = false) String idItem){
+        if(idItem != null){
+            commercialObjectQuantityOfItemsService.addItemInCommercialObjectWarehouse(idCommercialObject, Integer.parseInt(idItem));
+        }
         return "redirect:/warehouse/commercialObject?idCommercialObject=" + idCommercialObject;
     }
 
