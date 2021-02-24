@@ -14,7 +14,7 @@ public class CommercialObjectQuantityOfItems {
     private CommercialObject commercialObject;
     private double quantity;
 
-    @ManyToMany(mappedBy = "commercialObjectQuantityOfItems" , fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "commercialObjectQuantityOfItems", fetch = FetchType.EAGER)
     private List<Item> items;
 
     public CommercialObjectQuantityOfItems() {

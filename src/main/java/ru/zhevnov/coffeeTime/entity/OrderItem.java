@@ -1,4 +1,5 @@
 package ru.zhevnov.coffeeTime.entity;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 

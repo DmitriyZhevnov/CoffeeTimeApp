@@ -94,13 +94,15 @@
     <div class="menu-popup">
         <form action="/warehouse/newItem" method="post">
             <p align="right"><spring:message code="name"/>: <textarea name="name" cols="15" rows="1"></textarea></p>
-            <p align="right"><spring:message code="measure"/>: <textarea name="measure" cols="15" rows="1"></textarea>
+            <p align="right"><spring:message code="measure"/>: <textarea name="measure" cols="15"
+                                                                         rows="1"></textarea>
             </p>
             <p align="right"><spring:message code="warehouse.quantityInWarehouse"/>: <textarea
                     name="quantityInWarehouse" cols="15" rows="1"></textarea></p>
             <p><input class="bottom-popup" type="submit" value=<spring:message code="add"/>></p>
         </form>
-        <p align="center"><a class="href-popup" href="javascript:PopUpNewItemHide()"><spring:message code="back"/></a>
+        <p align="center"><a class="href-popup" href="javascript:PopUpNewItemHide()"><spring:message
+                code="back"/></a>
         </p>
     </div>
 </div>

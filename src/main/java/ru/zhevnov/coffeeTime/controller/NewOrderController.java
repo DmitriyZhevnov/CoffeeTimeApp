@@ -5,17 +5,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.zhevnov.coffeeTime.entity.Client;
 import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.entity.Product;
 import ru.zhevnov.coffeeTime.service.*;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
@@ -98,8 +94,6 @@ public class NewOrderController {
         return "main/newOrder/newOrder";
     }
 
-
-    //
     @PostMapping("/pay")
     public String payAndMakeOrder(@RequestParam("paymentType") String paymentType, @ModelAttribute("user") Employee
             employee,

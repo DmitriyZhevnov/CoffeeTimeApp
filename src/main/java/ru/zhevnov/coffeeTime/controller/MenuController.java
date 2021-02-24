@@ -65,7 +65,7 @@ public class MenuController {
     @PostMapping("/{idProduct}/addItem")
     public String addItemToProduct(@PathVariable(name = "idProduct") int idProduct,
                                    @RequestParam(value = "idItem", required = false) String idItem, Model model) {
-        if(idItem != null){
+        if (idItem != null) {
             productService.addItemToProduct(idProduct, Integer.parseInt(idItem));
         }
         return "redirect:/menu/" + idProduct;

@@ -7,7 +7,6 @@ import ru.zhevnov.coffeeTime.repository.ClientRepository;
 import ru.zhevnov.coffeeTime.service.IClientService;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 @Service
 public class ClientService implements IClientService {
@@ -33,10 +32,9 @@ public class ClientService implements IClientService {
 
     @Override
     public void addOnePercentToDiscount(int idClient) {
-//        sessionFactory.getCurrentSession().clear();
         Client client = clientRepository.getOne(idClient);
         int discount = client.getDiscount();
-        if (discount < 20){
+        if (discount < 20) {
             client.setDiscount(++discount);
         }
         clientRepository.save(client);

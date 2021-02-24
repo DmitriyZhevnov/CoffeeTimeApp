@@ -113,8 +113,7 @@
                     <div class='menuPage-section'>
                         <div class='menuPage-section-products'>
                             <input class="myEdit" oninput="changeCount(this.value, ${composition.indexOf(comp)})"
-                                   type="text"
-                                   value="${comp.quantity}">
+                                   type="text" value="${comp.quantity}">
                         </div>
                     </div>
 
@@ -146,42 +145,6 @@
                             </form>
                         </div>
                     </div>
-                        <%--                    <div class='menuPage-section'>--%>
-                        <%--                        <div class='menuPage-section-products'>${comp.item.measure}</div>--%>
-                        <%--                    </div>--%>
-                        <%--                    <div class='menuPage-section'>--%>
-                        <%--                        <div><input id="countProd" oninput="changeCount()" class='menuPage-section-products' type="text"--%>
-                        <%--                                    name="quantityOfItem"--%>
-                        <%--                                    value="${comp.quantity}"></div>--%>
-                        <%--                    </div>--%>
-                        <%--                    --%>
-
-
-                        <%--                    <div class='menuPage-section-products'>--%>
-                        <%--                        <div class='edit'>--%>
-                        <%--                                                    <button type="submit"--%>
-                        <%--                                                            class='menuPage-section-products_button menuPage-section-products_button-edit'>--%>
-                        <%--                                                        <spring:message code="save"/>--%>
-                        <%--                                                    </button>--%>
-                        <%--                                                                                        <input type="text" id="countProd2" name="quantityOfItem">--%>
-                        <%--                                                    <input type="hidden" name="productId" value="${product.id}">--%>
-                        <%--                                                    <input type="hidden" name="compositionId" value="${comp.id}">--%>
-                        <%--                                                    </form>--%>
-                        <%--                                                </div>--%>
-                        <%--                    </div>--%>
-                        <%--                    <div class='menuPage-section-products'>--%>
-                        <%--                        <div class='edit'>--%>
-                        <%--                                                    <form action="/menu/${product.id}/removeItem" method="post">--%>
-                        <%--                                                        <div class='edit'>--%>
-                        <%--                                                            <input type="hidden" name="compositionId" value="${comp.id}">--%>
-                        <%--                                                            <button type="submit"--%>
-                        <%--                                                                    class='menuPage-section-products_button menuPage-section-products_button-edit'>--%>
-                        <%--                                                                <spring:message code="delete"/>--%>
-                        <%--                                                            </button>--%>
-                        <%--                                                        </div>--%>
-                        <%--                                                    </form>--%>
-                        <%--                        </div>--%>
-                        <%--                    </div>--%>
                 </div>
             </c:forEach>
         </div>

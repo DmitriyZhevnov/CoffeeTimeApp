@@ -1,13 +1,8 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.zhevnov.coffeeTime.entity.CommercialObject;
-import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.entity.Shift;
-import ru.zhevnov.coffeeTime.repository.CommercialObjectRepository;
-import ru.zhevnov.coffeeTime.repository.EmployeeRepository;
 import ru.zhevnov.coffeeTime.repository.ShiftRepository;
 import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
 import ru.zhevnov.coffeeTime.service.IEmployeeService;
@@ -34,12 +29,10 @@ public class ShiftService implements IShiftService {
 
     @Transactional
     public void openShift(int idEmployee, int commercialObjectId) {
-        Time time = new Time(System.currentTimeMillis());
-        Date date = new Date(System.currentTimeMillis());
         Shift shift = new Shift();
         shift.setEmployee(employeeService.returnEmployeeById(idEmployee));
-        shift.setDateOpened(date);
-        shift.setTimeOpened(time);
+        shift.setDateOpened(new Date(System.currentTimeMillis()));
+        shift.setTimeOpened(new Time(System.currentTimeMillis()));
         shift.setCommercialObject(commercialObjectService.returnCommercialObjectById(commercialObjectId));
         shiftRepository.save(shift);
     }

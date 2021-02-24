@@ -39,8 +39,8 @@ public class ShiftController {
 
     @PostMapping("/date")
     public String showShiftsOfEmployee(@ModelAttribute("user") Employee employee, Model model,
-                           @RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
-                           @RequestParam("idEmployee") int idEmployee) {
+                                       @RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
+                                       @RequestParam("idEmployee") int idEmployee) {
         model.addAttribute("fromDate", fromDate);
         model.addAttribute("toDate", toDate);
         model.addAttribute("shifts", shiftService.returnShiftsByEmployeeIdAndDate(idEmployee, fromDate, toDate));
@@ -52,7 +52,7 @@ public class ShiftController {
     }
 
     @GetMapping("/{idShift}/update")
-    public String showViewForUpdateShift(@PathVariable(name = "idShift") int idShift, Model model){
+    public String showViewForUpdateShift(@PathVariable(name = "idShift") int idShift, Model model) {
         model.addAttribute("shift", shiftService.returnShiftById(idShift));
         model.addAttribute("allEmployees", employeeService.returnAllEmployees());
         model.addAttribute("allCommercialObjects", commercialObjectService.returnAllCommercialObjects());
@@ -63,11 +63,11 @@ public class ShiftController {
     public String updateShift(@PathVariable(name = "idShift") int idShift, @RequestParam("idCommercialObject") int idCommercialObject,
                               @RequestParam(value = "idEmployee", required = false) int idEmployee, @RequestParam(value = "dateOpened", required = false) Date dateOpened,
                               @RequestParam(value = "timeOpened", required = false) Time timeOpened, @RequestParam(value = "dateClosed", required = false) Date dateClosed,
-                              @RequestParam(value = "timeClosed", required = false) String timeClosedString, Model model){
+                              @RequestParam(value = "timeClosed", required = false) String timeClosedString, Model model) {
         Time timeClosed;
-        try{
-            timeClosed =  Time.valueOf(timeClosedString);
-        } catch(IllegalArgumentException e){
+        try {
+            timeClosed = Time.valueOf(timeClosedString);
+        } catch (IllegalArgumentException e) {
             timeClosedString = timeClosedString + ":00";
             timeClosed = Time.valueOf(timeClosedString);
         }

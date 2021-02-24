@@ -29,11 +29,6 @@ public class CommercialObjectQuantityOfItemsService implements ICommercialObject
     }
 
     @Transactional
-    public List<CommercialObjectQuantityOfItems> returnAll() {
-        return commercialObjectItemQuantityRepository.findAll();
-    }
-
-    @Transactional
     public void updateWithNewData(int idItem, double quantityOfItem) {
         CommercialObjectQuantityOfItems item = commercialObjectItemQuantityRepository.getOne(idItem);
         item.setQuantity(quantityOfItem);

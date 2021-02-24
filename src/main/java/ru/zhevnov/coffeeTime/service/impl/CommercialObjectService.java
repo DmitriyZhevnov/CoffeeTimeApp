@@ -61,7 +61,7 @@ public class CommercialObjectService implements ICommercialObjectService {
     @Transactional
     public void addItemsFromOrderInCommercialObjectsStorage(int idOrder) {
         Order order = orderService.returnOrderById(idOrder);
-        CommercialObject commercialObject =  order.getShift().getCommercialObject();
+        CommercialObject commercialObject = order.getShift().getCommercialObject();
         for (OrderItem orderItem : order.getOrderItems()) {
             int countOfItemsInOrder = orderItem.getQuantity();
             Product product = orderItem.getProducts().get(0);
@@ -77,7 +77,6 @@ public class CommercialObjectService implements ICommercialObjectService {
             }
         }
     }
-
 
     @Transactional
     public void saveOrUpdate(CommercialObject commercialObject) {

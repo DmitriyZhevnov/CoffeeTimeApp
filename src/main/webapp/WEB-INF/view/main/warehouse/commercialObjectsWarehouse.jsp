@@ -34,7 +34,8 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message code="view"/></button>
+                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message
+                                code="view"/></button>
                     </div>
                 </form>
                 <form action="/warehouse/commercialObject/${commObject.id}/addItem" method="post">
@@ -47,7 +48,8 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message code="add"/></button>
+                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message
+                                code="add"/></button>
                     </div>
                 </form>
             </div>

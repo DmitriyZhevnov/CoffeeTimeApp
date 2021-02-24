@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ICommercialObjectQuantityOfItemsService {
     void saveOrUpdate(CommercialObjectQuantityOfItems commercialObjectQuantityOfItems);
-    List<CommercialObjectQuantityOfItems> returnAll();
+
     void updateWithNewData(int idItem, double quantityOfItem);
+
     void addItemInCommercialObjectWarehouse(int idCommercialObject, int idItem);
 }

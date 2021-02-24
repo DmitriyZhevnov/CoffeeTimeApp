@@ -38,11 +38,14 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
-                                   value="${fromDate}"></div>
-                    <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second" name="toDate" value="${fromDate}"></div>
+                    <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()"
+                                                                      class='addNew-ID' id="first" name="fromDate"
+                                                                      value="${fromDate}"></div>
+                    <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second"
+                                                                    name="toDate" value="${fromDate}"></div>
                     <div>
-                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message code="view"/></button>
+                        <button type="submit" style="color:#fa8f21" class='addNew-ID'><spring:message
+                                code="view"/></button>
                     </div>
                 </form>
             </div>
@@ -104,7 +107,6 @@
             </div>
         </c:forEach>
     </div>
-</div>
 </div>
 </body>
 </html>

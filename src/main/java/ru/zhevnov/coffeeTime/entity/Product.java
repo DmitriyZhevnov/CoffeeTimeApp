@@ -19,12 +19,12 @@ public class Product {
     @JoinTable(name = "basket_item_product",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "basket_item_id"))
-    private List<BasketItem> basketItems ;
+    private List<BasketItem> basketItems;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "product_composition",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "composition_id"))
-    private List<Composition> composition ;
+    private List<Composition> composition;
 
     @ManyToMany
     @JoinTable(name = "order_item_product",

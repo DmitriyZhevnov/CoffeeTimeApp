@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ShiftRepository extends JpaRepository<Shift, Integer> {
-    Shift findByEmployeeIdAndDateOpenedAndDateClosed(int employeeId, Date dateOpened, Date dateClosed);
 
     @Query("from Shift where employee.id = :idEmployee and dateOpened = :dateOpened and dateClosed is null")
     Shift returnOpenedShiftByEmployeeId(@Param("idEmployee") int idEmployee, @Param("dateOpened") Date date);
@@ -27,6 +26,6 @@ public interface ShiftRepository extends JpaRepository<Shift, Integer> {
             " (select id from shift where date_opened between :fromDate and :toDate and commercial_object_id = :idCommercialObject) and (cash_amount != '0' or card_amount !='0')) as countOrder," +
             " (select count(shift_id) from orders where date_order between :fromDate and :toDate and shift_id in (select id from shift where date_opened between :fromDate and :toDate and commercial_object_id = :idCommercialObject) and cash_amount = '0' and card_amount ='0') as countOrderCanceled" +
             " from orders where date_order between :fromDate and :toDate and shift_id in (select id from shift where date_opened between :fromDate and :toDate and commercial_object_id = :idCommercialObject)", nativeQuery = true)
-    List makeReport(@Param("idCommercialObject") int idCommercialObject,@Param("fromDate") Date fromDate,@Param("toDate") Date toDate);
+    List makeReport(@Param("idCommercialObject") int idCommercialObject, @Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
 }

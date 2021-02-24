@@ -26,8 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/","/locale/**", "login", "/resources/**", "/h2/**", "/css/**", "/js/**", "/images/**").permitAll()
-                .antMatchers("/shifts/**", "/menu/**", "/warehouse/**","/closedOrders/date").hasRole("ADMIN")
+                .antMatchers("/", "/locale/**", "login", "/resources/**", "/h2/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/shifts/**", "/menu/**", "/warehouse/**", "/closedOrders/date").hasRole("ADMIN")
+//                .antMatchers("/shifts/**", "/menu/**","/closedOrders/date").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/closedOrders/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/report/**").hasRole("ADMIN")
                 .anyRequest()
@@ -48,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login").permitAll();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -60,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected DaoAuthenticationProvider daoAuthenticationProvider(){
+    protected DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(employeeService);

@@ -1,5 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
@@ -34,9 +34,11 @@
                                 </c:forEach>
                             </select>
                         </div>
-                        <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()" class='addNew-ID' id="first" name="fromDate"
-                                       value="${fromDate}"></div>
-                        <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second" name="toDate" value="${toDate}"></div>
+                        <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()"
+                                                                          class='addNew-ID' id="first" name="fromDate"
+                                                                          value="${fromDate}"></div>
+                        <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second"
+                                                                        name="toDate" value="${toDate}"></div>
                         <div>
                             <button type="submit" style="color:#fa8f21" class='addNew-ID'>
                                 <spring:message code="view"/>

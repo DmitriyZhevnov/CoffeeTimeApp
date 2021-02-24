@@ -1,23 +1,17 @@
 package ru.zhevnov.coffeeTime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.LocaleResolver;
 import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
 import ru.zhevnov.coffeeTime.service.IEmployeeService;
 import ru.zhevnov.coffeeTime.service.IShiftService;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 @Controller
 @RequestMapping("/login")
@@ -87,7 +81,6 @@ public class LoginController {
         } else {
             shiftService.openShift(employee.getId(), Integer.parseInt(objectId));
             return "redirect:/main";
-
         }
     }
 }

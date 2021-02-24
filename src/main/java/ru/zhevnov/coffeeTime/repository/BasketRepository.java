@@ -8,6 +8,7 @@ import ru.zhevnov.coffeeTime.entity.Basket;
 import ru.zhevnov.coffeeTime.entity.BasketItem;
 
 import java.util.List;
+
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Integer> {
     @Query(value = "from BasketItem where basket.employee.id = :idEmployee")

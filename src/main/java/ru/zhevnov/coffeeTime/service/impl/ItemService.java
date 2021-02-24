@@ -49,5 +49,4 @@ public class ItemService implements IItemService {
     public CommercialObjectQuantityOfItems returnCommercialObjectItemById(int idItem) {
         return null;
     }
-
 }

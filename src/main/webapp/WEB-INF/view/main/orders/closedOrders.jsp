@@ -84,9 +84,9 @@
                     <div class='menuPage-section-products'>${order.cardAmount + order.cashAmount}</div>
                 </div>
                 <sec:authorize access="hasRole('USER')">
-                <div class='menuPage-section'>
-                    <div class='menuPage-section-products'>${order.paymentType}</div>
-                </div>
+                    <div class='menuPage-section'>
+                        <div class='menuPage-section-products'>${order.paymentType}</div>
+                    </div>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN')">
                     <div class='menuPage-section'>
@@ -110,7 +110,6 @@
             </div>
         </c:forEach>
     </div>
-</div>
 </div>
 </body>
 </html>

@@ -6,13 +6,11 @@
 <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
 <script>
     $(document).ready(function () {
-        //Скрыть PopUp при загрузке страницы
         PopUpPayHide();
         PopUpNewUserHide();
         PopUpDifferentTypeOfPaymentHide();
     });
 
-    //Функция отображения PopUp
     function PopUpNewUserShow() {
         $("#popup2").show();
     }
@@ -50,8 +48,6 @@
 
 <head>
     <title><spring:message code="newOrder.title"/></title>
-    <%--    <script type="text/javascript" src="/js/functions.js"></script>--%>
-    <%--    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>--%>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -136,8 +132,6 @@
                         </p>
                     </div>
                 </div>
-
-
                 <div class='bomba-pay'>
                     <div class='first-section_total-cost'>
                         <spring:message code="newOrder.totalCost"/>:

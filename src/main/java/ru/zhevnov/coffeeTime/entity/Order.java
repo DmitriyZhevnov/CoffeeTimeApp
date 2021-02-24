@@ -1,4 +1,5 @@
 package ru.zhevnov.coffeeTime.entity;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;

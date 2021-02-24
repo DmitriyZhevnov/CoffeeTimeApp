@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.Category;
 import ru.zhevnov.coffeeTime.entity.Composition;
-import ru.zhevnov.coffeeTime.entity.Item;
 import ru.zhevnov.coffeeTime.entity.Product;
 import ru.zhevnov.coffeeTime.repository.ProductRepository;
 import ru.zhevnov.coffeeTime.service.ICategoryService;
@@ -62,23 +61,10 @@ public class ProductService implements IProductService {
     @Transactional
     public void addItemToProduct(int idProduct, int idItem) {
         Product product = productRepository.getOne(idProduct);
-
-        System.out.println(product.getComposition());
-
         Composition composition = new Composition();
-
-        System.out.println(itemService.returnItemById(idItem));
-
         composition.setItem(itemService.returnItemById(idItem));
-
-        System.out.println(composition);
-
         product.getComposition().add(composition);
-
-        System.out.println(product.getComposition());
         compositionService.saveOrUpdate(composition);
-//        productRepository.save(product);
-
     }
 
     @Transactional

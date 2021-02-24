@@ -36,9 +36,9 @@ public class ReportController {
     public String newOrder(@ModelAttribute("user") Employee employee, Model model,
                            @RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
                            @RequestParam("idCommercialObject") int idCommercialObject) {
-       model.addAttribute("fromDate", fromDate);
-       model.addAttribute("toDate", toDate);
-       model.addAttribute("report", shiftService.makeReport(idCommercialObject, fromDate, toDate));
+        model.addAttribute("fromDate", fromDate);
+        model.addAttribute("toDate", toDate);
+        model.addAttribute("report", shiftService.makeReport(idCommercialObject, fromDate, toDate));
         model.addAttribute("allCommercialObjects", commercialObjectService.returnAllCommercialObjects());
         return "main/report/report";
     }

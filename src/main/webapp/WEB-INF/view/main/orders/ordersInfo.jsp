@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -108,13 +108,16 @@
             <tr>
                 <td>
                     <div class="b-container_order" align="center">
-                        <a style="font-size: 20px; color: black"  href="javascript:PopUpCancelOrderShow()"><spring:message code="closedOrders.cancel"/></a>
+                        <a style="font-size: 20px; color: black"
+                           href="javascript:PopUpCancelOrderShow()"><spring:message code="closedOrders.cancel"/></a>
                     </div>
 
                 </td>
                 <td colspan="2">
                     <div class="b-container_order" align="center">
-                        <a style="font-size: 20px; color: black" href="javascript:PopUpChangePaymentTypeShow()"><spring:message code="closedOrders.changePayment"/></a>
+                        <a style="font-size: 20px; color: black"
+                           href="javascript:PopUpChangePaymentTypeShow()"><spring:message
+                                code="closedOrders.changePayment"/></a>
                     </div>
 
                 </td>
@@ -130,8 +133,10 @@
                         <spring:message code="closedOrder.withoutWriteOff"/>
                     </div>
                     <div><textarea name="reason" style="width: 100%" cols="20" rows="3"></textarea></div>
-                    <div><input type="submit" class="bottom-popup" value="<spring:message code="closedOrders.cancel"/>"></div>
-                    <p align="center"><a class="href-popup" href="javascript:PopUpCancelOrderHide()"><spring:message code="closedOrders.back"/></a></p>
+                    <div><input type="submit" class="bottom-popup" value="<spring:message code="closedOrders.cancel"/>">
+                    </div>
+                    <p align="center"><a class="href-popup" href="javascript:PopUpCancelOrderHide()"><spring:message
+                            code="closedOrders.back"/></a></p>
                 </div>
             </form>
         </div>
@@ -141,26 +146,35 @@
                     <p><input name="paymentType" type="radio" value="cash"> <spring:message code="newOrder.cash"/></p>
                     <p><input name="paymentType" type="radio" value="card"> <spring:message code="newOrder.card"/></p>
                     <div class="b-container">
-                        <a class="href-popup" href="javascript:PopUpChangeToDifferentPaymentTypeShow()"><spring:message code="newOrder.different"/></a>
+                        <a class="href-popup" href="javascript:PopUpChangeToDifferentPaymentTypeShow()"><spring:message
+                                code="newOrder.different"/></a>
                     </div>
                     <p><textarea style="width: 100%" name="reason" cols="20" rows="3"></textarea></p>
-                    <p><input type="submit" class="bottom-popup" value="<spring:message code="closedOrder.change"/>"></p>
+                    <p><input type="submit" class="bottom-popup" value="<spring:message code="closedOrder.change"/>">
+                    </p>
                 </form>
-                <p align="center"><a class="href-popup" href="javascript:PopUpChangePaymentTypeHide()"><spring:message code="newOrder.back"/></a></p>
+                <p align="center"><a class="href-popup" href="javascript:PopUpChangePaymentTypeHide()"><spring:message
+                        code="newOrder.back"/></a></p>
             </div>
         </div>
         <div class="b-popup" id="popup6">
             <div class="b-popup-content">
                 <form action="/closedOrders/${order.id}/changePaymentType" method="post">
                     <input type="hidden" name="paymentType" value="different">
-                    <p align="right"><spring:message code="newOrder.cash"/>: <textarea  id="first" name="cashAmount" oninput="subForFirst()" cols="15"
-                                           rows="1">${order.cardAmount + order.cashAmount}</textarea></p>
-                    <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second" oninput="subForSecond()" name="cardAmount" cols="15"
-                                        rows="1"></textarea></p>
-                    <p><textarea  style="width: 100%" name="reason" cols="20" rows="3"></textarea></p>
+                    <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount"
+                                                                                       oninput="subForFirst()" cols="15"
+                                                                                       rows="1">${order.cardAmount + order.cashAmount}</textarea>
+                    </p>
+                    <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second"
+                                                                                       oninput="subForSecond()"
+                                                                                       name="cardAmount" cols="15"
+                                                                                       rows="1"></textarea></p>
+                    <p><textarea style="width: 100%" name="reason" cols="20" rows="3"></textarea></p>
                     <p><input type="submit" class="bottom-popup" value=<spring:message code="closedOrder.change"/>></p>
                 </form>
-                <p align="center"><a class="href-popup" href="javascript:PopUpChangeToDifferentPaymentTypeHide()"><spring:message code="closedOrder.change"/></a></p>
+                <p align="center"><a class="href-popup"
+                                     href="javascript:PopUpChangeToDifferentPaymentTypeHide()"><spring:message
+                        code="closedOrder.change"/></a></p>
             </div>
         </div>
     </div>

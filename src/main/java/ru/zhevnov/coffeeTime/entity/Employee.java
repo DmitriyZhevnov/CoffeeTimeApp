@@ -71,7 +71,7 @@ public class Employee implements UserDetails {
         return list;
     }
 
-    public static UserDetails fromUser(Employee employee){
+    public static UserDetails fromUser(Employee employee) {
         return new org.springframework.security.core.userdetails.User(
                 employee.getLogin(), employee.getPassword(),
                 employee.isActive(),

@@ -23,44 +23,9 @@ public class EmployeeService implements IEmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Override
-    public void setPhoneNumberAndAddress(Employee employee, String phoneNumber, String address) {
-//        employeeDao.setPhoneNumberAndAddress(employee, phoneNumber, address);
-    }
-
-    @Override
-    public boolean checkLoginForExist(String login) {
-//        return employeeDao.checkLoginForExist(login);
-        return true;
-    }
-
-    @Override
-    public void updateEmployee(Employee employee) {
-//        employeeDao.updateEmployee(employee);
-    }
-
-    @Override
-    public void registerNewEmployee(String name, String login, String password) {
-//        User userFromDB = userRepository.findByUsername(user.getUsername());
-//
-//        if (userFromDB != null) {
-//            return false;
-//        }
-//
-//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        userRepository.save(user);
-//        return true;
-    }
-
     @Transactional
     public List<Employee> returnAllEmployees() {
         return employeeRepository.findAll();
-    }
-
-    @Transactional
-    public Employee checkAndReturnEmployeeByLoginAndPassword(String login, String password) {
-        return employeeRepository.findByLoginAndPassword(login, password);
     }
 
     @Override
