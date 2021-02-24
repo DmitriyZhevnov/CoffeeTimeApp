@@ -60,7 +60,8 @@ public class WarehouseController {
     public String showWarehouseOfCommercialObject(@RequestParam("idCommercialObject") int idCommercialObject, Model model) {
         model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
         model.addAttribute("commObject", commercialObjectService.returnCommercialObjectById(idCommercialObject));
-        model.addAttribute("items", itemService.returnAllItems());
+//        model.addAttribute("items", itemService.returnAllItems());
+        model.addAttribute("items", itemService.returnItemsForCommercialObject(idCommercialObject));
         return "main/warehouse/commercialObjectsWarehouse";
     }
 

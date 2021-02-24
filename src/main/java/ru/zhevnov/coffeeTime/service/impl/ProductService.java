@@ -62,11 +62,22 @@ public class ProductService implements IProductService {
     @Transactional
     public void addItemToProduct(int idProduct, int idItem) {
         Product product = productRepository.getOne(idProduct);
+
+        System.out.println(product.getComposition());
+
         Composition composition = new Composition();
+
+        System.out.println(itemService.returnItemById(idItem));
+
         composition.setItem(itemService.returnItemById(idItem));
+
+        System.out.println(composition);
+
         product.getComposition().add(composition);
+
+        System.out.println(product.getComposition());
         compositionService.saveOrUpdate(composition);
-        productRepository.save(product);
+//        productRepository.save(product);
 
     }
 
@@ -75,8 +86,8 @@ public class ProductService implements IProductService {
         Product product = productRepository.getOne(idProduct);
         Composition composition = compositionService.returnById(idComposition);
         product.getComposition().remove(composition);
-        productRepository.save(product);
         compositionService.removeComposition(composition);
+        productRepository.save(product);
     }
 
     @Transactional

@@ -15,6 +15,9 @@
                 <a href="/warehouse"><spring:message code="back"/></a>
             </div>
             <div class='header-data_user header-menuPage'>
+                <spring:message code="warehouse.comObjTitle"/> ${commObject.address}
+            </div>
+            <div class='header-data_user header-menuPage'>
                 <a href="/warehouse"><spring:message code="warehouse.toMainWarehouse"/></a>
             </div>
         </div>

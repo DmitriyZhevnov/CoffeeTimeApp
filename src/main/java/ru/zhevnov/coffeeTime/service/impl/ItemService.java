@@ -22,6 +22,11 @@ public class ItemService implements IItemService {
     }
 
     @Transactional
+    public List<Item> returnItemsForCommercialObject(int idCommercialObject) {
+        return itemRepository.returnItemsForCommercialObject(idCommercialObject);
+    }
+
+    @Transactional
     public void addNewItem(String itemName, String itemMeasure, double itemQuantityInWarehouse) {
         itemRepository.save(new Item(itemName, itemMeasure, itemQuantityInWarehouse));
     }

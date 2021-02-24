@@ -8,9 +8,10 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <script>
-    function changeCount() {
-        var firstTextArea = document.getElementById('countProd');
-        document.getElementById('countProd2').value = firstTextArea.value;
+    function changeCount(number, index) {
+        let tt = document.getElementById('countProd2').value = number;
+        let gg = document.getElementsByName("quantityOfItem")[index];
+        gg.value = tt;
     }
 </script>
 <body>
@@ -97,6 +98,9 @@
                 <div class='menuPage-section'>
                     <div class='menuPage-section-block'></div>
                 </div>
+                <div class='menuPage-section'>
+                    <div class='menuPage-section-block'></div>
+                </div>
             </div>
             <c:forEach items="${composition}" var="comp">
                 <div class='menuPage'>
@@ -107,33 +111,77 @@
                         <div class='menuPage-section-products'>${comp.item.measure}</div>
                     </div>
                     <div class='menuPage-section'>
-                        <div><input id="countProd" oninput="changeCount()" class='menuPage-section-products' type="text"
-                                    name="quantityOfItem"
-                                    value="${comp.quantity}"></div>
+                        <div class='menuPage-section-products'>
+                            <input class="myEdit" oninput="changeCount(this.value, ${composition.indexOf(comp)})"
+                                   type="text"
+                                   value="${comp.quantity}">
+                        </div>
                     </div>
-                    <div class='menuPage-section-products'>
-                        <div class='edit'>
+
+                    <div class='menuPage-section'>
+                        <div class='menuPage-section-products'>
                             <form action="/menu/updateComposition" method="post">
                                 <button type="submit"
                                         class='menuPage-section-products_button menuPage-section-products_button-edit'>
                                     <spring:message code="save"/>
                                 </button>
-                                <input type="hidden" id="countProd2" name="quantityOfItem">
+                                <input type="hidden" id="countProd2">
+                                <input type="hidden" name="quantityOfItem">
                                 <input type="hidden" name="productId" value="${product.id}">
                                 <input type="hidden" name="compositionId" value="${comp.id}">
                             </form>
                         </div>
                     </div>
-                    <form action="/menu/${product.id}/removeItem" method="post">
-                        <div class='edit'>
-                            <input type="hidden" name="compositionId" value="${comp.id}">
-                            <button type="submit"
-                                    class='menuPage-section-products_button menuPage-section-products_button-edit'>
-                                <spring:message code="delete"/>
-                            </button>
+
+                    <div class='menuPage-section'>
+                        <div class='menuPage-section-products'>
+                            <form action="/menu/${product.id}/removeItem" method="post">
+                                <div class='edit'>
+                                    <input type="hidden" name="compositionId" value="${comp.id}">
+                                    <button type="submit"
+                                            class='menuPage-section-products_button menuPage-section-products_button-edit'>
+                                        <spring:message code="delete"/>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                    </form>
+                    </div>
+                        <%--                    <div class='menuPage-section'>--%>
+                        <%--                        <div class='menuPage-section-products'>${comp.item.measure}</div>--%>
+                        <%--                    </div>--%>
+                        <%--                    <div class='menuPage-section'>--%>
+                        <%--                        <div><input id="countProd" oninput="changeCount()" class='menuPage-section-products' type="text"--%>
+                        <%--                                    name="quantityOfItem"--%>
+                        <%--                                    value="${comp.quantity}"></div>--%>
+                        <%--                    </div>--%>
+                        <%--                    --%>
+
+
+                        <%--                    <div class='menuPage-section-products'>--%>
+                        <%--                        <div class='edit'>--%>
+                        <%--                                                    <button type="submit"--%>
+                        <%--                                                            class='menuPage-section-products_button menuPage-section-products_button-edit'>--%>
+                        <%--                                                        <spring:message code="save"/>--%>
+                        <%--                                                    </button>--%>
+                        <%--                                                                                        <input type="text" id="countProd2" name="quantityOfItem">--%>
+                        <%--                                                    <input type="hidden" name="productId" value="${product.id}">--%>
+                        <%--                                                    <input type="hidden" name="compositionId" value="${comp.id}">--%>
+                        <%--                                                    </form>--%>
+                        <%--                                                </div>--%>
+                        <%--                    </div>--%>
+                        <%--                    <div class='menuPage-section-products'>--%>
+                        <%--                        <div class='edit'>--%>
+                        <%--                                                    <form action="/menu/${product.id}/removeItem" method="post">--%>
+                        <%--                                                        <div class='edit'>--%>
+                        <%--                                                            <input type="hidden" name="compositionId" value="${comp.id}">--%>
+                        <%--                                                            <button type="submit"--%>
+                        <%--                                                                    class='menuPage-section-products_button menuPage-section-products_button-edit'>--%>
+                        <%--                                                                <spring:message code="delete"/>--%>
+                        <%--                                                            </button>--%>
+                        <%--                                                        </div>--%>
+                        <%--                                                    </form>--%>
+                        <%--                        </div>--%>
+                        <%--                    </div>--%>
                 </div>
             </c:forEach>
         </div>

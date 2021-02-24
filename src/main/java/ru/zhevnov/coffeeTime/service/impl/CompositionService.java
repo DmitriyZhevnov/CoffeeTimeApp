@@ -21,7 +21,7 @@ public class CompositionService implements ICompositionService {
 
     @Override
     public void saveOrUpdate(Composition composition) {
-        compositionRepository.save(composition);
+        compositionRepository.saveAndFlush(composition);
     }
 
     @Override
