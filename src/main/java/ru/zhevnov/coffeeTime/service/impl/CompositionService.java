@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.Composition;
 import ru.zhevnov.coffeeTime.repository.CompositionRepository;
@@ -11,8 +10,11 @@ import javax.transaction.Transactional;
 @Service
 public class CompositionService implements ICompositionService {
 
-    @Autowired
-    private CompositionRepository compositionRepository;
+    private final CompositionRepository compositionRepository;
+
+    public CompositionService(CompositionRepository compositionRepository) {
+        this.compositionRepository = compositionRepository;
+    }
 
     @Transactional
     public Composition returnById(int id) {

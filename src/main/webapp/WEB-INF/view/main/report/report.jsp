@@ -3,12 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
-<script>
-    function copyDate() {
-        var fromDate = document.getElementById('first');
-        document.getElementById('second').value = fromDate.value;
-    }
-</script>
 <head>
     <title><spring:message code="report.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -67,3 +61,10 @@
     </div>
 </div>
 </body>
+<script>
+    function copyDate() {
+        var fromDate = document.getElementById('first');
+        document.getElementById('second').value = fromDate.value;
+    }
+</script>
+</html>

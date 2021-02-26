@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.*;
 import ru.zhevnov.coffeeTime.repository.OrderRepository;
@@ -14,22 +13,25 @@ import java.util.List;
 @Service
 public class OrderService implements IOrderService {
 
-    @Autowired
-    private IEmployeeService employeeService;
-    @Autowired
-    private IClientService clientService;
-    @Autowired
-    private IShiftService shiftService;
-    @Autowired
-    private IBasketService basketService;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private IProductService productService;
-    @Autowired
-    private IOrderItemService orderItemService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
+    private final IEmployeeService employeeService;
+    private final IClientService clientService;
+    private final IShiftService shiftService;
+    private final IBasketService basketService;
+    private final OrderRepository orderRepository;
+    private final IProductService productService;
+    private final IOrderItemService orderItemService;
+    private final ICommercialObjectService commercialObjectService;
+
+    public OrderService(IEmployeeService employeeService, IClientService clientService, IShiftService shiftService, IBasketService basketService, OrderRepository orderRepository, IProductService productService, IOrderItemService orderItemService, ICommercialObjectService commercialObjectService) {
+        this.employeeService = employeeService;
+        this.clientService = clientService;
+        this.shiftService = shiftService;
+        this.basketService = basketService;
+        this.orderRepository = orderRepository;
+        this.productService = productService;
+        this.orderItemService = orderItemService;
+        this.commercialObjectService = commercialObjectService;
+    }
 
 
     @Transactional

@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.Shift;
 import ru.zhevnov.coffeeTime.repository.ShiftRepository;
@@ -19,12 +18,15 @@ import java.util.List;
 @Service
 public class ShiftService implements IShiftService {
 
-    @Autowired
-    private ShiftRepository shiftRepository;
-    @Autowired
-    private IEmployeeService employeeService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
+    private final ShiftRepository shiftRepository;
+    private final IEmployeeService employeeService;
+    private final ICommercialObjectService commercialObjectService;
+
+    public ShiftService(ShiftRepository shiftRepository, IEmployeeService employeeService, ICommercialObjectService commercialObjectService) {
+        this.shiftRepository = shiftRepository;
+        this.employeeService = employeeService;
+        this.commercialObjectService = commercialObjectService;
+    }
 
 
     @Transactional

@@ -1,14 +1,9 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.*;
 import ru.zhevnov.coffeeTime.repository.CommercialObjectRepository;
-import ru.zhevnov.coffeeTime.repository.EmployeeRepository;
-import ru.zhevnov.coffeeTime.service.ICommercialObjectQuantityOfItemsService;
-import ru.zhevnov.coffeeTime.service.ICommercialObjectService;
-import ru.zhevnov.coffeeTime.service.IOrderService;
-import ru.zhevnov.coffeeTime.service.IShiftService;
+import ru.zhevnov.coffeeTime.service.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,16 +12,19 @@ import java.util.stream.Collectors;
 @Service
 public class CommercialObjectService implements ICommercialObjectService {
 
-    @Autowired
-    private CommercialObjectRepository commercialObjectRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private IShiftService shiftService;
-    @Autowired
-    private ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
-    @Autowired
-    private IOrderService orderService;
+    private final CommercialObjectRepository commercialObjectRepository;
+    private final IEmployeeService employeeService;
+    private final IShiftService shiftService;
+    private final ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
+    private final IOrderService orderService;
+
+    public CommercialObjectService(CommercialObjectRepository commercialObjectRepository, IEmployeeService employeeService, IShiftService shiftService, ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService, IOrderService orderService) {
+        this.commercialObjectRepository = commercialObjectRepository;
+        this.employeeService = employeeService;
+        this.shiftService = shiftService;
+        this.commercialObjectQuantityOfItemsService = commercialObjectQuantityOfItemsService;
+        this.orderService = orderService;
+    }
 
     @Transactional
     public List<CommercialObject> returnAllCommercialObjects() {
@@ -40,7 +38,7 @@ public class CommercialObjectService implements ICommercialObjectService {
 
     @Transactional
     public void submitItemsFromCommercialObjectsStorage(int idEmployee) throws IndexOutOfBoundsException {
-        Employee employee = employeeRepository.getOne(idEmployee);
+        Employee employee = employeeService.returnEmployeeById(idEmployee);
         Shift shift = shiftService.returnOpenedShiftByEmployeeId(employee.getId());
         CommercialObject cObject = shift.getCommercialObject();
         for (BasketItem basketItem : employee.getBasket().getBasketItems()) {

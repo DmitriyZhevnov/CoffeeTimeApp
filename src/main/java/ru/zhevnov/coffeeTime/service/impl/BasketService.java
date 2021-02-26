@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.BasketItem;
 import ru.zhevnov.coffeeTime.entity.Client;
@@ -8,7 +7,9 @@ import ru.zhevnov.coffeeTime.entity.Employee;
 import ru.zhevnov.coffeeTime.entity.Product;
 import ru.zhevnov.coffeeTime.repository.*;
 import ru.zhevnov.coffeeTime.service.IBasketService;
+import ru.zhevnov.coffeeTime.service.IClientService;
 import ru.zhevnov.coffeeTime.service.IEmployeeService;
+import ru.zhevnov.coffeeTime.service.IProductService;
 
 import javax.transaction.Transactional;
 import java.text.DecimalFormat;
@@ -19,16 +20,19 @@ import java.util.stream.Collectors;
 @Service
 public class BasketService implements IBasketService {
 
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private IEmployeeService employeeService;
-    @Autowired
-    private BasketRepository basketRepository;
-    @Autowired
-    private BasketItemRepository basketItemRepository;
-    @Autowired
-    private ProductRepository productRepository;
+    private final IClientService clientService;
+    private final IEmployeeService employeeService;
+    private final BasketRepository basketRepository;
+    private final BasketItemRepository basketItemRepository;
+    private final IProductService productService;
+
+    public BasketService(IClientService clientService, IEmployeeService employeeService, BasketRepository basketRepository, BasketItemRepository basketItemRepository, IProductService productService) {
+        this.clientService = clientService;
+        this.employeeService = employeeService;
+        this.basketRepository = basketRepository;
+        this.basketItemRepository = basketItemRepository;
+        this.productService = productService;
+    }
 
     @Transactional
     public void addProductToBasket(int personId, int productId) {
@@ -40,18 +44,18 @@ public class BasketService implements IBasketService {
                 basketItem.setQuantity(firstCountInBasketItem + 1);
                 basketItemRepository.save(basketItem);
             } else {
-                Product product = productRepository.getOne(productId);
+                Product product = productService.returnProductById(productId);
                 BasketItem basketItem = new BasketItem(employee.getBasket(), 1);
                 product.getBasketItems().add(basketItem);
                 basketItemRepository.save(basketItem);
-                productRepository.save(product);
+                productService.saveOrUpdateProduct(product);
             }
         } catch (NullPointerException e) {
-            Product product = productRepository.getOne(productId);
+            Product product = productService.returnProductById(productId);
             BasketItem basketItem = new BasketItem(employee.getBasket(), 1);
             product.getBasketItems().add(basketItem);
             basketItemRepository.save(basketItem);
-            productRepository.save(product);
+            productService.saveOrUpdateProduct(product);
         }
     }
 
@@ -64,7 +68,7 @@ public class BasketService implements IBasketService {
     public void deleteItem(int idEmployee, int idProduct) {
         Employee employee = employeeService.returnEmployeeById(idEmployee);
         BasketItem basketItem = employee.getBasket().getBasketItems().stream().filter(s -> s.getProducts().get(0).getId() == idProduct).collect(Collectors.toList()).get(0);
-        Product product = productRepository.getOne(idProduct);
+        Product product = productService.returnProductById(idProduct);
         employee.getBasket().getBasketItems().remove(basketItem);
         product.getBasketItems().remove(basketItem);
         basketItemRepository.delete(basketItem);
@@ -72,7 +76,7 @@ public class BasketService implements IBasketService {
 
     @Transactional
     public String returnTotalCostOfTheOrder(int idEmployee, String phoneNumber) {
-        Client client = clientRepository.getByPhoneNumber(phoneNumber);
+        Client client = clientService.returnClientByPhoneNumber(phoneNumber);
         Employee employee = employeeService.returnEmployeeById(idEmployee);
         try {
             double totalCost = employee.getBasket().getBasketItems().stream().mapToDouble(item -> item.getQuantity() * item.getProducts().get(0).getPrice()).sum();

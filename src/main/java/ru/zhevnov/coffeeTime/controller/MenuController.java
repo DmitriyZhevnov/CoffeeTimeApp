@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +14,15 @@ import ru.zhevnov.coffeeTime.service.IProductService;
 @RequestMapping("/menu")
 public class MenuController {
 
-    @Autowired
-    private IProductService productService;
-    @Autowired
-    private ICategoryService categoryService;
-    @Autowired
-    private IItemService itemService;
+    private final IProductService productService;
+    private final ICategoryService categoryService;
+    private final IItemService itemService;
+
+    public MenuController(IProductService productService, ICategoryService categoryService, IItemService itemService) {
+        this.productService = productService;
+        this.categoryService = categoryService;
+        this.itemService = itemService;
+    }
 
     @GetMapping
     public String showMenu(@ModelAttribute("user") Employee employee, Model model) {
@@ -29,7 +31,8 @@ public class MenuController {
     }
 
     @GetMapping("/{idProduct}")
-    public String editProduct(@PathVariable(name = "idProduct") int idProduct, @ModelAttribute("user") Employee employee, Model model) {
+    public String editProduct(@PathVariable(name = "idProduct") int idProduct,
+                              @ModelAttribute("user") Employee employee, Model model) {
         model.addAttribute("allCategories", categoryService.returnAllCategories());
         Product product = productService.returnProductById(idProduct);
         model.addAttribute("product", product);
@@ -38,22 +41,24 @@ public class MenuController {
         return "main/menu/editProduct";
     }
 
-    @PostMapping("/update")
-    public String updateProduct(@ModelAttribute("user") Employee employee, Model model,
-                                @RequestParam("productId") int productId, @RequestParam("productName") String productName,
-                                @RequestParam("productPrice") String productPrice, @RequestParam("idCategory") String categoryId) {
-
+    @PatchMapping("/update")
+    public String updateProduct(@ModelAttribute("user") Employee employee, @RequestParam("productId") int productId,
+                                @RequestParam("productName") String productName,
+                                @RequestParam("productPrice") String productPrice,
+                                @RequestParam("idCategory") String categoryId) {
         try {
             if (!categoryId.isEmpty()) {
-                productService.updateProductWithNewData(productId, productName, Double.parseDouble(productPrice), Integer.parseInt(categoryId));
+                productService.updateProductWithNewData(productId, productName, Double.parseDouble(productPrice),
+                        Integer.parseInt(categoryId));
             }
         } catch (NumberFormatException e) {
         }
         return "redirect:/menu/" + productId;
     }
 
-    @PostMapping("/updateComposition")
-    public String updateComposition(@RequestParam("compositionId") int compositionId, @RequestParam("quantityOfItem") String quantityOfItem,
+    @PatchMapping("/updateComposition")
+    public String updateComposition(@RequestParam("compositionId") int compositionId,
+                                    @RequestParam("quantityOfItem") String quantityOfItem,
                                     @RequestParam("productId") int productId) {
         try {
             productService.updateCompositionOfProduct(compositionId, Double.parseDouble(quantityOfItem));
@@ -64,23 +69,24 @@ public class MenuController {
 
     @PostMapping("/{idProduct}/addItem")
     public String addItemToProduct(@PathVariable(name = "idProduct") int idProduct,
-                                   @RequestParam(value = "idItem", required = false) String idItem, Model model) {
+                                   @RequestParam(value = "idItem", required = false) String idItem) {
         if (idItem != null) {
             productService.addItemToProduct(idProduct, Integer.parseInt(idItem));
         }
         return "redirect:/menu/" + idProduct;
     }
 
-    @PostMapping("/{idProduct}/removeItem")
+    @DeleteMapping("/{idProduct}/removeItem")
     public String removeItemFromProduct(@PathVariable(name = "idProduct") int idProduct,
-                                        @RequestParam("compositionId") int idComposition, Model model) {
+                                        @RequestParam("compositionId") int idComposition) {
         productService.removeItemFromProduct(idProduct, idComposition);
         return "redirect:/menu/" + idProduct;
     }
 
     @PostMapping("/newItem")
     public String saveNewItem(@RequestParam("idProduct") int idProduct, @RequestParam("name") String itemName,
-                              @RequestParam("measure") String itemMeasure, @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse) {
+                              @RequestParam("measure") String itemMeasure,
+                              @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse) {
         try {
             itemService.addNewItem(itemName, itemMeasure, Double.parseDouble(itemQuantityInWarehouse));
         } catch (NumberFormatException e) {

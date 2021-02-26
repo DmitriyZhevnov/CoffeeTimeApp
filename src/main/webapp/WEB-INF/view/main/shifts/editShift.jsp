@@ -42,6 +42,7 @@
             </div>
         </div>
         <form action="/shifts/${shift.id}/update" method="post">
+            <input type="hidden" name="_method" value="patch">
             <div style="width: 1000px" class='menuPage'>
                 <div class='menuPage-section'>
                     <div class='menuPage-section-products'>

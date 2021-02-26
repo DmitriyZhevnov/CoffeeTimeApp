@@ -3,49 +3,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpPayHide();
-        PopUpNewUserHide();
-        PopUpDifferentTypeOfPaymentHide();
-    });
-
-    function PopUpNewUserShow() {
-        $("#popup2").show();
-    }
-
-    function PopUpPayShow() {
-        $("#popup1").show();
-    }
-
-    function PopUpDifferentTypeOfPaymentShow() {
-        $("#popup3").show();
-    }
-
-    function PopUpNewUserHide() {
-        $("#popup2").hide();
-    }
-
-    function PopUpPayHide() {
-        $("#popup1").hide();
-    }
-
-    function PopUpDifferentTypeOfPaymentHide() {
-        $("#popup3").hide();
-    }
-
-    function subForSecond() {
-        var secondTextArea = document.getElementById('second');
-        document.getElementById('first').value = (${totalCost} -secondTextArea.value).toFixed(2);
-    }
-
-    function subForFirst() {
-        var firstTextArea = document.getElementById('first');
-        document.getElementById('second').value = (${totalCost} -firstTextArea.value).toFixed(2);
-    }
-</script>
-
 <head>
     <title><spring:message code="newOrder.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -211,4 +168,46 @@
     </div>
 </div>
 </body>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        PopUpPayHide();
+        PopUpNewUserHide();
+        PopUpDifferentTypeOfPaymentHide();
+    });
+
+    function PopUpNewUserShow() {
+        $("#popup2").show();
+    }
+
+    function PopUpPayShow() {
+        $("#popup1").show();
+    }
+
+    function PopUpDifferentTypeOfPaymentShow() {
+        $("#popup3").show();
+    }
+
+    function PopUpNewUserHide() {
+        $("#popup2").hide();
+    }
+
+    function PopUpPayHide() {
+        $("#popup1").hide();
+    }
+
+    function PopUpDifferentTypeOfPaymentHide() {
+        $("#popup3").hide();
+    }
+
+    function subForSecond() {
+        var secondTextArea = document.getElementById('second');
+        document.getElementById('first').value = (${totalCost} -secondTextArea.value).toFixed(2);
+    }
+
+    function subForFirst() {
+        var firstTextArea = document.getElementById('first');
+        document.getElementById('second').value = (${totalCost} -firstTextArea.value).toFixed(2);
+    }
+</script>
 </html>

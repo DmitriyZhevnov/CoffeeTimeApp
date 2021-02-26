@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,13 @@ import java.sql.Date;
 @RequestMapping("/closedOrders")
 public class ClosedOrdersController {
 
-    @Autowired
-    private IOrderService orderService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
+    private final IOrderService orderService;
+    private final ICommercialObjectService commercialObjectService;
+
+    public ClosedOrdersController(IOrderService orderService, ICommercialObjectService commercialObjectService) {
+        this.orderService = orderService;
+        this.commercialObjectService = commercialObjectService;
+    }
 
     @GetMapping()
     public String showCanceledOrders(@ModelAttribute("user") Employee employee, Model model) {
@@ -39,12 +41,13 @@ public class ClosedOrdersController {
     }
 
     @GetMapping("/{idOrder}")
-    public String showOrderInfo(@PathVariable(name = "idOrder") int idOrder, @ModelAttribute("user") Employee employee, Model model) {
+    public String showOrderInfo(@PathVariable(name = "idOrder") int idOrder,
+                                @ModelAttribute("user") Employee employee, Model model) {
         model.addAttribute("order", orderService.returnOrderById(idOrder));
         return "main/orders/ordersInfo";
     }
 
-    @PostMapping("/{idOrder}/cancel")
+    @PatchMapping("/{idOrder}/cancel")
     public String cancelOrder(@PathVariable(name = "idOrder") int idOrder, @RequestParam(name = "reason") String reason,
                               @RequestParam(name = "typeOfOrderCancellation") String type, Model model) {
         if (orderService.returnOrderById(idOrder).getPaymentType().equals("cancelled")) {
@@ -56,9 +59,10 @@ public class ClosedOrdersController {
         return "main/orders/ordersInfo";
     }
 
-    @PostMapping("/{idOrder}/changePaymentType")
+    @PatchMapping("/{idOrder}/changePaymentType")
     public String changePaymentType(@PathVariable(name = "idOrder") int idOrder,
-                                    @RequestParam(name = "reason", required = false) String reason, @RequestParam(name = "paymentType") String type,
+                                    @RequestParam(name = "reason", required = false) String reason,
+                                    @RequestParam(name = "paymentType") String type,
                                     @RequestParam(value = "cashAmount", required = false) String cash,
                                     @RequestParam(value = "cardAmount", required = false) String card, Model model) {
         if (orderService.returnOrderById(idOrder).getPaymentType().equals("cancelled")) {

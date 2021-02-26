@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -17,30 +16,33 @@ import ru.zhevnov.coffeeTime.service.IShiftService;
 @RequestMapping("/warehouse")
 public class WarehouseController {
 
-    @Autowired
-    private IItemService itemService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
-    @Autowired
-    private ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
-    @Autowired
-    private IShiftService shiftService;
+    private final IItemService itemService;
+    private final ICommercialObjectService commercialObjectService;
+    private final ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
+    private final IShiftService shiftService;
+
+    public WarehouseController(IItemService itemService, ICommercialObjectService commercialObjectService, ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService, IShiftService shiftService) {
+        this.itemService = itemService;
+        this.commercialObjectService = commercialObjectService;
+        this.commercialObjectQuantityOfItemsService = commercialObjectQuantityOfItemsService;
+        this.shiftService = shiftService;
+    }
 
     @GetMapping
     public String showWarehouse(Model model, Authentication authentication, @ModelAttribute("user") Employee employee) {
-//        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-        model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
-        model.addAttribute("allItems", itemService.returnAllItems());
-        return "main/warehouse/warehouse";
-//        }  else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))){
-//            return "redirect:/warehouse/commercialObject?idCommercialObject="+shiftService.returnOpenedShiftByEmployeeId(employee.getId()).getCommercialObject().getId();
-//        }
-//        else return "redirect:/logout";
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+            model.addAttribute("allItems", itemService.returnAllItems());
+            return "main/warehouse/warehouse";
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+            return "redirect:/warehouse/commercialObject?idCommercialObject=" +
+                    shiftService.returnOpenedShiftByEmployeeId(employee.getId()).getCommercialObject().getId();
+        } else return "redirect:/logout";
     }
 
     @PostMapping("/newItem")
-    public String saveNewItem(@RequestParam("name") String itemName,
-                              @RequestParam("measure") String itemMeasure, @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse) {
+    public String saveNewItem(@RequestParam("name") String itemName, @RequestParam("measure") String itemMeasure,
+                              @RequestParam("quantityInWarehouse") String itemQuantityInWarehouse) {
         try {
             itemService.addNewItem(itemName, itemMeasure, Double.parseDouble(itemQuantityInWarehouse));
         } catch (NumberFormatException e) {
@@ -49,9 +51,12 @@ public class WarehouseController {
     }
 
     @GetMapping("/{idItem}")
-    public String editItemInWarehouse(@PathVariable("idItem") int idItem, @ModelAttribute("user") Employee employee, Model model) {
-        model.addAttribute("item", itemService.returnItemById(idItem));
-        return "main/warehouse/editItemInWarehouse";
+    public String editItemInWarehouse(Authentication authentication, @PathVariable("idItem") int idItem,
+                                      @ModelAttribute("user") Employee employee, Model model) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            model.addAttribute("item", itemService.returnItemById(idItem));
+            return "main/warehouse/editItemInWarehouse";
+        } else return "redirect:/main";
     }
 
     @PostMapping("/{idItem}")
@@ -67,22 +72,28 @@ public class WarehouseController {
     }
 
     @GetMapping("/commercialObject")
-    public String showWarehouseOfCommercialObject(@RequestParam("idCommercialObject") int idCommercialObject, Model model) {
-        model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
-        model.addAttribute("commObject", commercialObjectService.returnCommercialObjectById(idCommercialObject));
-        model.addAttribute("items", itemService.returnItemsForCommercialObject(idCommercialObject));
+    public String showWarehouseOfCommercialObject(@RequestParam("idCommercialObject") int idCommercialObject, Model model,
+                                                  @ModelAttribute("user") Employee employee, Authentication authentication) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+            int currentIdObject = shiftService.returnOpenedShiftByEmployeeId(employee.getId()).getCommercialObject().getId();
+            model.addAttribute("commObject", commercialObjectService.returnCommercialObjectById(currentIdObject));
+        } else {
+            model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
+            model.addAttribute("commObject", commercialObjectService.returnCommercialObjectById(idCommercialObject));
+            model.addAttribute("items", itemService.returnItemsForCommercialObject(idCommercialObject));
+        }
         return "main/warehouse/commercialObjectsWarehouse";
     }
 
     @PostMapping("/commercialObject/{idItem}")
-    public String editItemInCommercialObjectWithValues(@PathVariable("idItem") int idItem, @RequestParam("itemQuantity") String quantityItem,
-                                                       @RequestParam("idCommercialObject") int idCommercialObject, Model model) {
+    public String editItemInCommercialObjectWithValues(@PathVariable("idItem") int idItem,
+                                                       @RequestParam("itemQuantity") String quantityItem,
+                                                       @RequestParam("idCommercialObject") int idCommercialObject) {
         try {
             commercialObjectQuantityOfItemsService.updateWithNewData(idItem, Double.parseDouble(quantityItem));
         } catch (NumberFormatException e) {
         }
         return "redirect:/warehouse/commercialObject?idCommercialObject=" + idCommercialObject;
-
     }
 
     @PostMapping("/commercialObject/{idCommercialObject}/addItem")
@@ -93,5 +104,4 @@ public class WarehouseController {
         }
         return "redirect:/warehouse/commercialObject?idCommercialObject=" + idCommercialObject;
     }
-
 }

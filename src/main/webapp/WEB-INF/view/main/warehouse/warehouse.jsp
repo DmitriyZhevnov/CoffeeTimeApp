@@ -2,20 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpNewItemHide();
-    });
-
-    function PopUpNewItemShow() {
-        $("#popup8").show();
-    }
-
-    function PopUpNewItemHide() {
-        $("#popup8").hide();
-    }
-</script>
 <head>
     <title><spring:message code="warehouse.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -107,5 +93,19 @@
     </div>
 </div>
 </body>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        PopUpNewItemHide();
+    });
+
+    function PopUpNewItemShow() {
+        $("#popup8").show();
+    }
+
+    function PopUpNewItemHide() {
+        $("#popup8").hide();
+    }
+</script>
 </html>
 

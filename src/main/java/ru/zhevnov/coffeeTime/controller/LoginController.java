@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,14 +17,17 @@ import java.security.Principal;
 @SessionAttributes("user")
 public class LoginController {
 
-    @Autowired
-    private IEmployeeService employeeService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
-    @Autowired
-    private IShiftService shiftService;
-    @Autowired
-    private MessageSource messageSource;
+    private final IEmployeeService employeeService;
+    private final ICommercialObjectService commercialObjectService;
+    private final IShiftService shiftService;
+    private final MessageSource messageSource;
+
+    public LoginController(IEmployeeService employeeService, ICommercialObjectService commercialObjectService, IShiftService shiftService, MessageSource messageSource) {
+        this.employeeService = employeeService;
+        this.commercialObjectService = commercialObjectService;
+        this.shiftService = shiftService;
+        this.messageSource = messageSource;
+    }
 
 
     @ModelAttribute("user")
@@ -40,7 +42,7 @@ public class LoginController {
 
 
     @GetMapping
-    public String showLoginPage(Model model) {
+    public String showLoginPage() {
         return "login/loginPage";
     }
 
@@ -64,16 +66,19 @@ public class LoginController {
     }
 
     @GetMapping("/openShift")
-    public String openShift(Model model, @RequestParam(value = "comObj", required = false) String objectId, @ModelAttribute("user") Employee employee) {
-        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"}, LocaleContextHolder.getLocale());
+    public String openShift(Model model, @ModelAttribute("user") Employee employee) {
+        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"},
+                LocaleContextHolder.getLocale());
         model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
         model.addAttribute("msg", errorMessage);
         return "login/chooseCommercialObject";
     }
 
     @PostMapping("/openShift")
-    public String openShiftPost(Model model, @RequestParam(value = "comObj", required = false) String objectId, @ModelAttribute("user") Employee employee) {
-        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"}, LocaleContextHolder.getLocale());
+    public String openShiftPost(Model model, @RequestParam(value = "comObj", required = false) String objectId,
+                                @ModelAttribute("user") Employee employee) {
+        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"},
+                LocaleContextHolder.getLocale());
         if (objectId == null) {
             model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
             model.addAttribute("msg", errorMessage);

@@ -7,7 +7,6 @@
     <title><spring:message code="closedOrders.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-
 <body>
 <div class='background'>
     <header class='header header-menuPage'>

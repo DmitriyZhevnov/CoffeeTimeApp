@@ -456,6 +456,12 @@
     height: 90%;
     border: 5px double #fa8f21;
 }
+.userMenuPage {
+    display: flex;
+    width: 600px;
+    height: 90%;
+    border: 5px double #fa8f21;
+}
 .reportPage {
     display: flex;
     width: 400px;
@@ -468,6 +474,12 @@
     flex-direction: column;
     border-right: 5px double #fa8f21;
     width: 25%;
+}
+.userMenuPage-section {
+    display: flex;
+    flex-direction: column;
+    border-right: 5px double #fa8f21;
+    width: 33.3333%;
 }
 
 .reportPage-section {

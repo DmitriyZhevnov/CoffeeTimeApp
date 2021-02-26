@@ -7,13 +7,6 @@
     <title><spring:message code="menuEdit.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-<script>
-    function changeCount(number, index) {
-        let tt = document.getElementById('countProd2').value = number;
-        let gg = document.getElementsByName("quantityOfItem")[index];
-        gg.value = tt;
-    }
-</script>
 <body>
 <div class='background'>
     <header class='header header-menuPage'>
@@ -24,25 +17,32 @@
         </div>
     </header>
     <form action="/menu/update" method="post">
+        <input type="hidden" name="_method" value="patch">
         <div class='main main-menuPage main-menuPage_editProduct'>
             <div class='error'>${msg}</div>
             <br/>
             <div class='menuPage'>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'><spring:message code="name"/></div>
+                    <div class='menuPage-section-block'>
+                        <spring:message code="name"/>
+                    </div>
                     <div>
                         <input class='menuPage-section-products' type="text" value="${product.name}" name="productName">
                     </div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'><spring:message code="price"/></div>
+                    <div class='menuPage-section-block'>
+                        <spring:message code="price"/>
+                    </div>
                     <div>
                         <input class='menuPage-section-products' type="text" value="${product.price}"
                                name="productPrice">
                     </div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-block'><spring:message code="category"/></div>
+                    <div class='menuPage-section-block'>
+                        <spring:message code="category"/>
+                    </div>
                     <div class='menuPage-section-products'>
                         <select style="width: 100%" class='menuPage-section-products_category' name="idCategory">
                             <option disabled>${product.category.name}</option>
@@ -120,6 +120,7 @@
                     <div class='menuPage-section'>
                         <div class='menuPage-section-products'>
                             <form action="/menu/updateComposition" method="post">
+                                <input type="hidden" name="_method" value="patch">
                                 <button type="submit"
                                         class='menuPage-section-products_button menuPage-section-products_button-edit'>
                                     <spring:message code="save"/>
@@ -131,10 +132,10 @@
                             </form>
                         </div>
                     </div>
-
                     <div class='menuPage-section'>
                         <div class='menuPage-section-products'>
                             <form action="/menu/${product.id}/removeItem" method="post">
+                                <input type="hidden" name="_method" value="delete">
                                 <div class='edit'>
                                     <input type="hidden" name="compositionId" value="${comp.id}">
                                     <button type="submit"
@@ -151,5 +152,12 @@
     </div>
 </div>
 </body>
+<script>
+    function changeCount(number, index) {
+        let tt = document.getElementById('countProd2').value = number;
+        let gg = document.getElementsByName("quantityOfItem")[index];
+        gg.value = tt;
+    }
+</script>
 </html>
 

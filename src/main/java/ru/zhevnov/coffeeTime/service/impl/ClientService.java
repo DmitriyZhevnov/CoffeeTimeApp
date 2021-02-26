@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.Client;
 import ru.zhevnov.coffeeTime.repository.ClientRepository;
@@ -11,8 +10,11 @@ import javax.transaction.Transactional;
 @Service
 public class ClientService implements IClientService {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
+
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     @Transactional
     public boolean registerNewClient(String name, String phoneNumber) {

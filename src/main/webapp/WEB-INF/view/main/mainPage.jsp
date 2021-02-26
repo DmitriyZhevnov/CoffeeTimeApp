@@ -119,6 +119,13 @@
                     </button>
                 </form>
             </div>
+            <div class='box'>
+                <form action="/warehouse" method="get">
+                    <button class="grid-button" type="submit">
+                        <spring:message code="main.warehouse"/>
+                    </button>
+                </form>
+            </div>
             <div class='box box8'>
                 <form action="/logout" method="GET">
                     <button class="grid-button" type="submit">

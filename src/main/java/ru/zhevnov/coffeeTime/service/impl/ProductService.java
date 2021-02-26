@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.Category;
 import ru.zhevnov.coffeeTime.entity.Composition;
@@ -17,14 +16,17 @@ import java.util.List;
 @Service
 public class ProductService implements IProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ICategoryService categoryService;
-    @Autowired
-    private ICompositionService compositionService;
-    @Autowired
-    private IItemService itemService;
+    private final ProductRepository productRepository;
+    private final ICategoryService categoryService;
+    private final ICompositionService compositionService;
+    private final IItemService itemService;
+
+    public ProductService(ProductRepository productRepository, ICategoryService categoryService, ICompositionService compositionService, IItemService itemService) {
+        this.productRepository = productRepository;
+        this.categoryService = categoryService;
+        this.compositionService = compositionService;
+        this.itemService = itemService;
+    }
 
     @Transactional
     public void saveOrUpdateProduct(Product product) {
@@ -73,7 +75,6 @@ public class ProductService implements IProductService {
         Composition composition = compositionService.returnById(idComposition);
         product.getComposition().remove(composition);
         compositionService.removeComposition(composition);
-        productRepository.save(product);
     }
 
     @Transactional

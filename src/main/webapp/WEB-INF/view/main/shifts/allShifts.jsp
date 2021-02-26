@@ -6,12 +6,6 @@
     <title><spring:message code="shifts.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
-<script>
-    function copyDate() {
-        var fromDate = document.getElementById('first');
-        document.getElementById('second').value = fromDate.value;
-    }
-</script>
 <body>
 <div class='background'>
     <header class='header header-menuPage'>
@@ -109,6 +103,12 @@
     </div>
 </div>
 </body>
+<script>
+    function copyDate() {
+        var fromDate = document.getElementById('first');
+        document.getElementById('second').value = fromDate.value;
+    }
+</script>
 </html>
 
 

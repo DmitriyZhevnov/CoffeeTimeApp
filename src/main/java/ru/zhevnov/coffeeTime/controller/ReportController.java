@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +15,13 @@ import java.sql.Date;
 @RequestMapping("/report")
 public class ReportController {
 
-    @Autowired
-    private IShiftService shiftService;
-    @Autowired
-    private ICommercialObjectService commercialObjectService;
+    private final IShiftService shiftService;
+    private final ICommercialObjectService commercialObjectService;
+
+    public ReportController(IShiftService shiftService, ICommercialObjectService commercialObjectService) {
+        this.shiftService = shiftService;
+        this.commercialObjectService = commercialObjectService;
+    }
 
     @GetMapping()
     public String newOrder(@ModelAttribute("user") Employee employee, Model model) {

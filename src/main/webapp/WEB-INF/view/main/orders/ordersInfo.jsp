@@ -3,48 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpCancelOrderHide();
-        PopUpChangePaymentTypeHide();
-        PopUpChangeToDifferentPaymentTypeHide();
-    });
-
-    function PopUpCancelOrderShow() {
-        $("#popup4").show();
-    }
-
-    function PopUpCancelOrderHide() {
-        $("#popup4").hide();
-    }
-
-    function PopUpChangePaymentTypeShow() {
-        $("#popup5").show();
-    }
-
-    function PopUpChangePaymentTypeHide() {
-        $("#popup5").hide();
-    }
-
-    function PopUpChangeToDifferentPaymentTypeShow() {
-        $("#popup6").show();
-    }
-
-    function PopUpChangeToDifferentPaymentTypeHide() {
-        $("#popup6").hide();
-    }
-
-    function subForSecond() {
-        var secondTextArea = document.getElementById('second');
-        document.getElementById('first').value = (${order.cardAmount + order.cashAmount} -secondTextArea.value).toFixed(2);
-    }
-
-    function subForFirst() {
-        var firstTextArea = document.getElementById('first');
-        document.getElementById('second').value = (${order.cardAmount + order.cashAmount} -firstTextArea.value).toFixed(2);
-    }
-</script>
 <head>
     <title><spring:message code="closedOrder.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -125,6 +83,7 @@
         </table>
         <div class="b-popup" id="popup4">
             <form action="/closedOrders/${order.id}/cancel" method="post">
+                <input type="hidden" name="_method" value="patch">
                 <div class="b-popup-content">
                     <div><input name="typeOfOrderCancellation" type="radio" value="withWriteOffProducts">
                         <spring:message code="closedOrder.withWriteOff"/>
@@ -143,6 +102,7 @@
         <div class="b-popup" id="popup5">
             <div class="b-popup-content">
                 <form action="/closedOrders/${order.id}/changePaymentType" method="post">
+                    <input type="hidden" name="_method" value="patch">
                     <p><input name="paymentType" type="radio" value="cash"> <spring:message code="newOrder.cash"/></p>
                     <p><input name="paymentType" type="radio" value="card"> <spring:message code="newOrder.card"/></p>
                     <div class="b-container">
@@ -160,6 +120,7 @@
         <div class="b-popup" id="popup6">
             <div class="b-popup-content">
                 <form action="/closedOrders/${order.id}/changePaymentType" method="post">
+                    <input type="hidden" name="_method" value="patch">
                     <input type="hidden" name="paymentType" value="different">
                     <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount"
                                                                                        oninput="subForFirst()" cols="15"
@@ -180,4 +141,46 @@
     </div>
 </div>
 </body>
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        PopUpCancelOrderHide();
+        PopUpChangePaymentTypeHide();
+        PopUpChangeToDifferentPaymentTypeHide();
+    });
+
+    function PopUpCancelOrderShow() {
+        $("#popup4").show();
+    }
+
+    function PopUpCancelOrderHide() {
+        $("#popup4").hide();
+    }
+
+    function PopUpChangePaymentTypeShow() {
+        $("#popup5").show();
+    }
+
+    function PopUpChangePaymentTypeHide() {
+        $("#popup5").hide();
+    }
+
+    function PopUpChangeToDifferentPaymentTypeShow() {
+        $("#popup6").show();
+    }
+
+    function PopUpChangeToDifferentPaymentTypeHide() {
+        $("#popup6").hide();
+    }
+
+    function subForSecond() {
+        var secondTextArea = document.getElementById('second');
+        document.getElementById('first').value = (${order.cardAmount + order.cashAmount} -secondTextArea.value).toFixed(2);
+    }
+
+    function subForFirst() {
+        var firstTextArea = document.getElementById('first');
+        document.getElementById('second').value = (${order.cardAmount + order.cashAmount} -firstTextArea.value).toFixed(2);
+    }
+</script>
 </html>
