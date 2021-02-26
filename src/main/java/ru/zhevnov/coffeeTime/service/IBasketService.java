@@ -1,6 +1,7 @@
 package ru.zhevnov.coffeeTime.service;
 
 
+import ru.zhevnov.coffeeTime.entity.Basket;
 import ru.zhevnov.coffeeTime.entity.BasketItem;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface IBasketService {
     void cleanBasket(int idEmployee);
 
     void submitProductInBasket(int employeeId, int productId);
+
+    Basket returnNewBasket();
 }

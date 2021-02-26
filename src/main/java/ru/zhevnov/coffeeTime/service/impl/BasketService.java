@@ -2,10 +2,7 @@ package ru.zhevnov.coffeeTime.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.zhevnov.coffeeTime.entity.BasketItem;
-import ru.zhevnov.coffeeTime.entity.Client;
-import ru.zhevnov.coffeeTime.entity.Employee;
-import ru.zhevnov.coffeeTime.entity.Product;
+import ru.zhevnov.coffeeTime.entity.*;
 import ru.zhevnov.coffeeTime.repository.*;
 import ru.zhevnov.coffeeTime.service.IBasketService;
 import ru.zhevnov.coffeeTime.service.IClientService;
@@ -112,5 +109,12 @@ public class BasketService implements IBasketService {
             basketItem.setQuantity(firstCountInBasketItem - 1);
             basketItemRepository.save(basketItem);
         }
+    }
+
+    @Transactional
+    public Basket returnNewBasket() {
+        Basket basket = new Basket();
+        basketRepository.save(basket);
+        return basket;
     }
 }

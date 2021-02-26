@@ -70,6 +70,13 @@
                     </button>
                 </form>
             </div>
+            <div>
+                <form action="/employees" method="get">
+                    <button class="grid-button" type="submit">
+                        Сотрудники
+                    </button>
+                </form>
+            </div>
             <div class='box7'>
                 <form action="/warehouse" method="get">
                     <button class="grid-button" type="submit">

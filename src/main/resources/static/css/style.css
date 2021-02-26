@@ -417,6 +417,23 @@
     width: 90%;
 }
 
+.myButton{
+    color: #ffffff;
+    background: #fa8f21;
+    height: 35px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    width: 100%;
+}
+
 .products-price {
     padding: 5px;
     margin: auto;

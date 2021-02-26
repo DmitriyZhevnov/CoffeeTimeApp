@@ -13,4 +13,16 @@ public interface IEmployeeService extends UserDetailsService {
 
     Employee returnEmployeeByLogin(String login);
 
+    void addNewEmployee(String name, String login, String password);
+
+    List<Employee> returnAllEmployeesWithRoleUser();
+
+    List<Employee> returnAllDismissedEmployees();
+
+    void updatePassword(int idEmployee, String password);
+
+    void dismissEmployee(int idEmployee);
+
+    void retractTermination (int idEmployee);
+
 }
