@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.CommercialObject;
 import ru.zhevnov.coffeeTime.entity.CommercialObjectQuantityOfItems;
@@ -14,15 +15,12 @@ import javax.transaction.Transactional;
 @Service
 public class CommercialObjectQuantityOfItemsService implements ICommercialObjectQuantityOfItemsService {
 
-    private final CommercialObjectItemQuantityRepository commercialObjectItemQuantityRepository;
-    private final ICommercialObjectService commercialObjectService;
-    private final IItemService itemService;
-
-    public CommercialObjectQuantityOfItemsService(CommercialObjectItemQuantityRepository commercialObjectItemQuantityRepository, ICommercialObjectService commercialObjectService, IItemService itemService) {
-        this.commercialObjectItemQuantityRepository = commercialObjectItemQuantityRepository;
-        this.commercialObjectService = commercialObjectService;
-        this.itemService = itemService;
-    }
+    @Autowired
+    private CommercialObjectItemQuantityRepository commercialObjectItemQuantityRepository;
+    @Autowired
+    private ICommercialObjectService commercialObjectService;
+    @Autowired
+    private IItemService itemService;
 
     @Transactional
     public void saveOrUpdate(CommercialObjectQuantityOfItems commercialObjectQuantityOfItems) {

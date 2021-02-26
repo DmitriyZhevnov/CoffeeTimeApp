@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,8 @@ import java.util.List;
 @Service
 public class EmployeeService implements IEmployeeService {
 
-    private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Transactional
     public List<Employee> returnAllEmployees() {

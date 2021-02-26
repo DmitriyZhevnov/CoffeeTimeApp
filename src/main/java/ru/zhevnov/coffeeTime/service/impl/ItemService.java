@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.CommercialObjectQuantityOfItems;
 import ru.zhevnov.coffeeTime.entity.Item;
@@ -12,11 +13,8 @@ import java.util.List;
 @Service
 public class ItemService implements IItemService {
 
-    private final ItemRepository itemRepository;
-
-    public ItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Transactional
     public List<Item> returnAllItems() {

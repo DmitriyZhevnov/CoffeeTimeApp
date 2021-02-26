@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.OrderItem;
 import ru.zhevnov.coffeeTime.repository.OrderItemRepository;
@@ -10,11 +11,8 @@ import javax.transaction.Transactional;
 @Service
 public class OrderItemService implements IOrderItemService {
 
-    private final OrderItemRepository orderItemRepository;
-
-    public OrderItemService(OrderItemRepository orderItemRepository) {
-        this.orderItemRepository = orderItemRepository;
-    }
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Transactional
     public void saveOrUpdate(OrderItem orderItem) {

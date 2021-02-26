@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.*;
 import ru.zhevnov.coffeeTime.repository.CommercialObjectRepository;
@@ -12,19 +13,16 @@ import java.util.stream.Collectors;
 @Service
 public class CommercialObjectService implements ICommercialObjectService {
 
-    private final CommercialObjectRepository commercialObjectRepository;
-    private final IEmployeeService employeeService;
-    private final IShiftService shiftService;
-    private final ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
-    private final IOrderService orderService;
-
-    public CommercialObjectService(CommercialObjectRepository commercialObjectRepository, IEmployeeService employeeService, IShiftService shiftService, ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService, IOrderService orderService) {
-        this.commercialObjectRepository = commercialObjectRepository;
-        this.employeeService = employeeService;
-        this.shiftService = shiftService;
-        this.commercialObjectQuantityOfItemsService = commercialObjectQuantityOfItemsService;
-        this.orderService = orderService;
-    }
+    @Autowired
+    private CommercialObjectRepository commercialObjectRepository;
+    @Autowired
+    private IEmployeeService employeeService;
+    @Autowired
+    private IShiftService shiftService;
+    @Autowired
+    private ICommercialObjectQuantityOfItemsService commercialObjectQuantityOfItemsService;
+    @Autowired
+    private IOrderService orderService;
 
     @Transactional
     public List<CommercialObject> returnAllCommercialObjects() {

@@ -69,20 +69,26 @@ public class ShiftController {
                               @RequestParam(value = "idEmployee", required = false) int idEmployee,
                               @RequestParam(value = "dateOpened", required = false) Date dateOpened,
                               @RequestParam(value = "timeOpened", required = false) Time timeOpened,
-                              @RequestParam(value = "dateClosed", required = false) Date dateClosed,
+                              @RequestParam(value = "dateClosed", required = false) String dateClosedString,
                               @RequestParam(value = "timeClosed", required = false) String timeClosedString,
                               Model model) {
-        Time timeClosed;
-        try {
-            timeClosed = Time.valueOf(timeClosedString);
-        } catch (IllegalArgumentException e) {
-            timeClosedString = timeClosedString + ":00";
-            timeClosed = Time.valueOf(timeClosedString);
+        if (!dateClosedString.isEmpty() && !timeClosedString.isEmpty()) {
+            Time timeClosed;
+            try {
+                timeClosed = Time.valueOf(timeClosedString);
+            } catch (IllegalArgumentException e) {
+                timeClosedString = timeClosedString + ":00";
+                timeClosed = Time.valueOf(timeClosedString);
+            }
+            shiftService.updateShiftWithNewData(idShift, idCommercialObject, idEmployee, dateOpened, timeOpened,
+                    Date.valueOf(dateClosedString), timeClosed);
+            model.addAttribute("shift", shiftService.returnShiftById(idShift));
+            model.addAttribute("allEmployees", employeeService.returnAllEmployees());
+            model.addAttribute("allCommercialObjects", commercialObjectService.returnAllCommercialObjects());
+            return "redirect:/shifts";
+        } else {
+            return "redirect:/shifts/" + idShift + "/update";
         }
-        shiftService.updateShiftWithNewData(idShift, idCommercialObject, idEmployee, dateOpened, timeOpened, dateClosed, timeClosed);
-        model.addAttribute("shift", shiftService.returnShiftById(idShift));
-        model.addAttribute("allEmployees", employeeService.returnAllEmployees());
-        model.addAttribute("allCommercialObjects", commercialObjectService.returnAllCommercialObjects());
-        return "redirect:/shifts";
+
     }
 }

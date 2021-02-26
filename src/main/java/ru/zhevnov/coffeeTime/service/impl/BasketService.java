@@ -1,5 +1,6 @@
 package ru.zhevnov.coffeeTime.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.zhevnov.coffeeTime.entity.BasketItem;
 import ru.zhevnov.coffeeTime.entity.Client;
@@ -20,19 +21,16 @@ import java.util.stream.Collectors;
 @Service
 public class BasketService implements IBasketService {
 
-    private final IClientService clientService;
-    private final IEmployeeService employeeService;
-    private final BasketRepository basketRepository;
-    private final BasketItemRepository basketItemRepository;
-    private final IProductService productService;
-
-    public BasketService(IClientService clientService, IEmployeeService employeeService, BasketRepository basketRepository, BasketItemRepository basketItemRepository, IProductService productService) {
-        this.clientService = clientService;
-        this.employeeService = employeeService;
-        this.basketRepository = basketRepository;
-        this.basketItemRepository = basketItemRepository;
-        this.productService = productService;
-    }
+    @Autowired
+    private IClientService clientService;
+    @Autowired
+    private IEmployeeService employeeService;
+    @Autowired
+    private BasketRepository basketRepository;
+    @Autowired
+    private BasketItemRepository basketItemRepository;
+    @Autowired
+    private IProductService productService;
 
     @Transactional
     public void addProductToBasket(int personId, int productId) {
