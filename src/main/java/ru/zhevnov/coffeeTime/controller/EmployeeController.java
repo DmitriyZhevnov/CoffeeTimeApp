@@ -1,6 +1,5 @@
 package ru.zhevnov.coffeeTime.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,10 +11,13 @@ import ru.zhevnov.coffeeTime.service.IEmployeeService;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    @Autowired
-    private IEmployeeService employeeService;
-    @Autowired
-    private MessageSource messageSource;
+    private final IEmployeeService employeeService;
+    private final MessageSource messageSource;
+
+    public EmployeeController(IEmployeeService employeeService, MessageSource messageSource) {
+        this.employeeService = employeeService;
+        this.messageSource = messageSource;
+    }
 
     @GetMapping
     public String showAll(Model model) {

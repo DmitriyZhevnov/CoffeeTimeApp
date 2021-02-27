@@ -113,18 +113,17 @@ public class NewOrderController {
                 if (Double.parseDouble(cash) < 0 || Double.parseDouble(card) < 0) {
                     errorMessage = messageSource.getMessage("newOrder.error", new Object[]{"newOrder.error"},
                             LocaleContextHolder.getLocale());
+                }
+            } catch (NumberFormatException e) {
+                errorMessage = messageSource.getMessage("newOrder.error", new Object[]{"newOrder.error"},
+                        LocaleContextHolder.getLocale());
+            } finally {
+                if(!errorMessage.isEmpty()){
                     model.addAttribute("msg", errorMessage);
                     model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
                     model.addAttribute("basket", basketService.returnListOfProductsInBasket(employee.getId()));
                     return "main/newOrder/newOrder";
                 }
-            } catch (NumberFormatException e) {
-                errorMessage = messageSource.getMessage("newOrder.error", new Object[]{"newOrder.error"},
-                        LocaleContextHolder.getLocale());
-                model.addAttribute("msg", errorMessage);
-                model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
-                model.addAttribute("basket", basketService.returnListOfProductsInBasket(employee.getId()));
-                return "main/newOrder/newOrder";
             }
         }
         try {
