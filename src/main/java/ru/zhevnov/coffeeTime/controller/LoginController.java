@@ -59,6 +59,9 @@ public class LoginController {
         Employee employee = employeeService.returnEmployeeByLogin(login);
         model.addAttribute("user", employee);
         if (shiftService.returnOpenedShiftByEmployeeId(employee.getId()) == null) {
+            String errorMessage = messageSource.getMessage("noAccess", new Object[]{"noAccess"},
+                    LocaleContextHolder.getLocale());
+            model.addAttribute("msgError", errorMessage);
             model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
             return "login/chooseCommercialObject";
         } else {
@@ -68,10 +71,7 @@ public class LoginController {
 
     @GetMapping("/openShift")
     public String openShift(Model model, @ModelAttribute("user") Employee employee) {
-        String errorMessage = messageSource.getMessage("chooseComObj.choose", new Object[]{"chooseComObj.choose"},
-                LocaleContextHolder.getLocale());
         model.addAttribute("commercialObjects", commercialObjectService.returnAllCommercialObjects());
-        model.addAttribute("msg", errorMessage);
         return "login/chooseCommercialObject";
     }
 

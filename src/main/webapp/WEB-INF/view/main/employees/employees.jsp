@@ -3,11 +3,10 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="employees"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-
 <div class='comObj-warehouse'>
     <header class='header header-menuPage'>
         <div class='header-data header-menuPage'>
@@ -16,7 +15,7 @@
             </div>
             <div class='header-data_user header-menuPage'>
                 <a href="javascript:PopUpNewEmployeeShow()">
-                    Новый сотрудник
+                    <spring:message code="newEmployee"/>
                 </a>
             </div>
         </div>
@@ -26,11 +25,11 @@
 <div class='editProduct-second-section'>
     <table border="1" style="border: 5px double #fa8f21" width="600px">
         <tr>
-            <td colspan="5" align="center" style="background: #fa8f21; font-size: 20px; font-weight: bold;">Трудоустроенные</td>
+            <td colspan="5" align="center" style="background: #fa8f21; font-size: 20px; font-weight: bold;"><spring:message code="employed"/></td>
         </tr>
         <tr style="background: bisque">
-            <td>Имя</td>
-            <td>Логин</td>
+            <td><spring:message code="employee.name"/></td>
+            <td><spring:message code="login"/></td>
             <td></td>
             <td></td>
         </tr>
@@ -41,14 +40,14 @@
                 <td style="background: bisque">
                     <form action="/employees/${employee.id}/updatePassword">
                         <div class='products'>
-                            <button class='myButton'>Сбросить пароль</button>
+                            <button class='myButton'><spring:message code="reset.the.password"/></button>
                         </div>
                     </form>
                 </td>
                 <td style="background: bisque">
                     <form action="/employees/${employee.id}/dismiss" method="post">
                         <input type="hidden" name="_method" value="patch">
-                        <button class='myButton'>Уволить</button>
+                        <button class='myButton'><spring:message code="dismiss"/></button>
                     </form>
                 </td>
             </tr>
@@ -58,11 +57,11 @@
 <div class='editProduct-second-section'>
     <table border="1" style="border: 5px double #fa8f21" width="600px">
         <tr>
-            <td colspan="5" align="center" style="background: #fa8f21; font-size: 20px; font-weight: bold;">Уволенные</td>
+            <td colspan="5" align="center" style="background: #fa8f21; font-size: 20px; font-weight: bold;"><spring:message code="dismissed"/></td>
         </tr>
         <tr style="background: bisque">
-            <td>Имя</td>
-            <td>Логин</td>
+            <td><spring:message code="employee.name"/></td>
+            <td><spring:message code="login"/></td>
             <td></td>
         </tr>
         <c:forEach items="${dismissedEmployees}" var="employee">
@@ -73,7 +72,7 @@
                     <form action="/employees/${employee.id}/return" method="post">
                         <input type="hidden" name="_method" value="patch">
                         <div class='products'>
-                            <button class='myButton'>Вернуть</button>
+                            <button class='myButton'><spring:message code="return"/></button>
                         </div>
                     </form>
                 </td>
@@ -85,11 +84,11 @@
 <div class="b-popup" id="popup9">
     <div class="b-popup-content">
         <form action="/employees" method="post">
-            <p align="right">Имя: <textarea name="name" cols="20"
+            <p align="right"><spring:message code="employee.name"/>: <textarea name="name" cols="20"
                                             rows="1"></textarea></p>
-            <p align="right">Логин: <textarea name="login" cols="20"
+            <p align="right"><spring:message code="login"/>: <textarea name="login" cols="20"
                                               rows="1"></textarea></p>
-            <p align="right">Пароль: <textarea name="password" cols="20"
+            <p align="right"><spring:message code="password"/>: <textarea name="password" cols="20"
                                                rows="1"></textarea></p>
             <p><input class="bottom-popup" type="submit" value=<spring:message code="newOrder.register"/>></p>
         </form>

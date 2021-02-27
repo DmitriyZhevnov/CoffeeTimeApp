@@ -73,7 +73,7 @@
             <div>
                 <form action="/employees" method="get">
                     <button class="grid-button" type="submit">
-                        Сотрудники
+                        <spring:message code="employees"/>
                     </button>
                 </form>
             </div>

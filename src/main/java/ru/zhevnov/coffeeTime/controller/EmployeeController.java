@@ -1,6 +1,8 @@
 package ru.zhevnov.coffeeTime.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,8 @@ public class EmployeeController {
 
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping
     public String showAll(Model model) {
@@ -27,7 +31,9 @@ public class EmployeeController {
             employeeService.addNewEmployee(name, login, password);
             return "redirect:/employees";
         } else {
-            model.addAttribute("msg", "Введите все данные. Пользователь не был добавлен");
+            String errorMessage = messageSource.getMessage("employee.error", new Object[]{"employee.error"},
+                    LocaleContextHolder.getLocale());
+            model.addAttribute("msg", errorMessage);
             model.addAttribute("allEmployees", employeeService.returnAllEmployeesWithRoleUser());
             model.addAttribute("dismissedEmployees", employeeService.returnAllDismissedEmployees());
             return "main/employees/employees";

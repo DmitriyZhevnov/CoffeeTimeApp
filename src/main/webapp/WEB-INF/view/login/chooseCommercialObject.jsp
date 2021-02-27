@@ -37,7 +37,7 @@
                 <button class='button' type="submit"><spring:message code="chooseComObj.openShift"/></button>
             </sec:authorize>
             <sec:authorize access="hasRole('DISMISSED')">
-                <div class='main-data_error main-data_error-parametrs'>Sorry</div>
+                <div class='main-data_error main-data_error-parametrs'>${msgError}</div>
             </sec:authorize>
         </div>
     </form>

@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="newEmployee"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
@@ -9,7 +10,7 @@
     <header class='header header-menuPage'>
         <div class='header-data header-menuPage'>
             <div class='header-data_user header-menuPage'>
-                <a href="/employees">Назад</a>
+                <a href="/employees"><spring:message code="back"/></a>
             </div>
         </div>
     </header>
@@ -17,9 +18,9 @@
         <div class='main main-menuPage main-menuPage_editProduct'>
             <div class='reportPage'>
                 <div class='reportPage-section'>
-                    <div class='menuPage-section-block'>Имя</div>
-                    <div class='menuPage-section-block'>Логин</div>
-                    <div class='menuPage-section-block'>Пароль</div>
+                    <div class='menuPage-section-block'><spring:message code="employee.name"/></div>
+                    <div class='menuPage-section-block'><spring:message code="login"/></div>
+                    <div class='menuPage-section-block'><spring:message code="password"/></div>
                     <div class='menuPage-section-block'></div>
                 </div>
                 <div class='reportPage-section'>
@@ -31,7 +32,7 @@
                             <input class="myEdit" type="text" name="password">
                         </div>
                         <div class='menuPage-report-section'>
-                            <button class='myButton'>Сохранить</button>
+                            <button class='myButton'><spring:message code="save"/></button>
                         </div>
                     </form>
                 </div>

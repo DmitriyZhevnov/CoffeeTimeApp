@@ -107,17 +107,20 @@ public class NewOrderController {
                                   @ModelAttribute("phoneNumber") String phoneNumber,
                                   @RequestParam(value = "cashAmount", required = false) String cash,
                                   @RequestParam(value = "cardAmount", required = false) String card, Model model) {
+        String errorMessage = "";
         if (paymentType.equals("different")) {
-            String errorMessage = "";
             try {
                 if (Double.parseDouble(cash) < 0 || Double.parseDouble(card) < 0) {
                     errorMessage = messageSource.getMessage("newOrder.error", new Object[]{"newOrder.error"},
                             LocaleContextHolder.getLocale());
+                    model.addAttribute("msg", errorMessage);
+                    model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
+                    model.addAttribute("basket", basketService.returnListOfProductsInBasket(employee.getId()));
+                    return "main/newOrder/newOrder";
                 }
             } catch (NumberFormatException e) {
                 errorMessage = messageSource.getMessage("newOrder.error", new Object[]{"newOrder.error"},
                         LocaleContextHolder.getLocale());
-            } finally {
                 model.addAttribute("msg", errorMessage);
                 model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
                 model.addAttribute("basket", basketService.returnListOfProductsInBasket(employee.getId()));
@@ -128,7 +131,7 @@ public class NewOrderController {
             commercialObjectService.submitItemsFromCommercialObjectsStorage(employee.getId());
             orderService.saveNewOrder(employee.getId(), phoneNumber, paymentType, card, cash);
         } catch (IndexOutOfBoundsException e) {
-            String errorMessage = messageSource.getMessage("newOrder.notAvailable",
+            errorMessage = messageSource.getMessage("newOrder.notAvailable",
                     new Object[]{"newOrder.notAvailable"}, LocaleContextHolder.getLocale());
             model.addAttribute("msg", errorMessage);
             model.addAttribute("totalCost", basketService.returnTotalCostOfTheOrder(employee.getId(), phoneNumber));
@@ -138,6 +141,7 @@ public class NewOrderController {
         model.addAttribute("phoneNumber", "");
         return "redirect:/newOrder";
     }
+
 
     @ModelAttribute("coffees")
     public List<Product> allCoffees(Model model) {
