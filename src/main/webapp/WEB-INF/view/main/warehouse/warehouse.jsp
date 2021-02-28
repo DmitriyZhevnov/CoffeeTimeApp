@@ -5,6 +5,7 @@
 <head>
     <title><spring:message code="warehouse.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 <div class='background'>
@@ -93,19 +94,5 @@
     </div>
 </div>
 </body>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpNewItemHide();
-    });
-
-    function PopUpNewItemShow() {
-        $("#popup8").show();
-    }
-
-    function PopUpNewItemHide() {
-        $("#popup8").hide();
-    }
-</script>
 </html>
 

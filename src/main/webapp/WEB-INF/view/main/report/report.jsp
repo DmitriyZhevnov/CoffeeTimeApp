@@ -6,6 +6,7 @@
 <head>
     <title><spring:message code="report.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 <div class='background'>
@@ -29,9 +30,9 @@
                             </select>
                         </div>
                         <div><spring:message code="shifts.from"/>: <input type="date" onchange="copyDate()"
-                                                                          class='addNew-ID' id="first" name="fromDate"
+                                                                          class='addNew-ID' id="firstDate" name="fromDate"
                                                                           value="${fromDate}"></div>
-                        <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="second"
+                        <div><spring:message code="shifts.to"/>: <input type="date" class='addNew-ID' id="secondDate"
                                                                         name="toDate" value="${toDate}"></div>
                         <div>
                             <button type="submit" style="color:#fa8f21" class='addNew-ID'>
@@ -61,10 +62,4 @@
     </div>
 </div>
 </body>
-<script>
-    function copyDate() {
-        var fromDate = document.getElementById('first');
-        document.getElementById('second').value = fromDate.value;
-    }
-</script>
 </html>

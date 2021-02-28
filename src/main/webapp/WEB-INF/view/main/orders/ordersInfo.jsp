@@ -6,6 +6,7 @@
 <head>
     <title><spring:message code="closedOrder.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 <div class='background'>
@@ -114,7 +115,7 @@
                     </p>
                 </form>
                 <p align="center"><a class="href-popup" href="javascript:PopUpChangePaymentTypeHide()"><spring:message
-                        code="newOrder.back"/></a></p>
+                        code="back"/></a></p>
             </div>
         </div>
         <div class="b-popup" id="popup6">
@@ -123,11 +124,11 @@
                     <input type="hidden" name="_method" value="patch">
                     <input type="hidden" name="paymentType" value="different">
                     <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount"
-                                                                                       oninput="subForFirst()" cols="15"
+                                                                                       oninput="subForFirst(${order.cardAmount + order.cashAmount})" cols="15"
                                                                                        rows="1">${order.cardAmount + order.cashAmount}</textarea>
                     </p>
                     <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second"
-                                                                                       oninput="subForSecond()"
+                                                                                       oninput="subForSecond(${order.cardAmount + order.cashAmount})"
                                                                                        name="cardAmount" cols="15"
                                                                                        rows="1"></textarea></p>
                     <p><textarea style="width: 100%" name="reason" cols="20" rows="3"></textarea></p>
@@ -135,52 +136,10 @@
                 </form>
                 <p align="center"><a class="href-popup"
                                      href="javascript:PopUpChangeToDifferentPaymentTypeHide()"><spring:message
-                        code="closedOrder.change"/></a></p>
+                        code="back"/></a></p>
             </div>
         </div>
     </div>
 </div>
 </body>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpCancelOrderHide();
-        PopUpChangePaymentTypeHide();
-        PopUpChangeToDifferentPaymentTypeHide();
-    });
-
-    function PopUpCancelOrderShow() {
-        $("#popup4").show();
-    }
-
-    function PopUpCancelOrderHide() {
-        $("#popup4").hide();
-    }
-
-    function PopUpChangePaymentTypeShow() {
-        $("#popup5").show();
-    }
-
-    function PopUpChangePaymentTypeHide() {
-        $("#popup5").hide();
-    }
-
-    function PopUpChangeToDifferentPaymentTypeShow() {
-        $("#popup6").show();
-    }
-
-    function PopUpChangeToDifferentPaymentTypeHide() {
-        $("#popup6").hide();
-    }
-
-    function subForSecond() {
-        var secondTextArea = document.getElementById('second');
-        document.getElementById('first').value = (${order.cardAmount + order.cashAmount} -secondTextArea.value).toFixed(2);
-    }
-
-    function subForFirst() {
-        var firstTextArea = document.getElementById('first');
-        document.getElementById('second').value = (${order.cardAmount + order.cashAmount} -firstTextArea.value).toFixed(2);
-    }
-</script>
 </html>

@@ -6,6 +6,7 @@
 <head>
     <title><spring:message code="menuEdit.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 <div class='background'>
@@ -152,12 +153,5 @@
     </div>
 </div>
 </body>
-<script>
-    function changeCount(number, index) {
-        let tt = document.getElementById('countProd2').value = number;
-        let gg = document.getElementsByName("quantityOfItem")[index];
-        gg.value = tt;
-    }
-</script>
 </html>
 

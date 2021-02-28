@@ -693,6 +693,7 @@
 /*}*/
 
 .b-popup {
+    display: none;
     width: 100%;
     min-height: 100%;
     align-items: center;
@@ -727,7 +728,6 @@ a {
     font-family: Raleway;
     font-style: normal;
     font-weight: 600;
-    /*align-items: center;*/
     align-content: center;
     margin: 70px auto 0px auto;
     width: 400px;
@@ -755,3 +755,5 @@ a {
     align-content: center;
     color: #db7d36;
 }
+
+

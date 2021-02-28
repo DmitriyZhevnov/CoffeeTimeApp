@@ -6,6 +6,7 @@
 <head>
     <title><spring:message code="newOrder.title"/></title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/functions.js"></script>
 </head>
 <body>
 <div class="main">
@@ -71,12 +72,12 @@
                             <input type="hidden" name="paymentType" value="different">
                             <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first"
                                                                                                name="cashAmount"
-                                                                                               oninput="subForFirst()"
+                                                                                               oninput="subForFirst(${totalCost})"
                                                                                                cols="15"
                                                                                                rows="1">${totalCost}</textarea>
                             </p>
                             <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second"
-                                                                                               oninput="subForSecond()"
+                                                                                               oninput="subForSecond(${totalCost})"
                                                                                                name="cardAmount"
                                                                                                cols="15"
                                                                                                rows="1"></textarea></p>
@@ -168,46 +169,4 @@
     </div>
 </div>
 </body>
-<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        PopUpPayHide();
-        PopUpNewUserHide();
-        PopUpDifferentTypeOfPaymentHide();
-    });
-
-    function PopUpNewUserShow() {
-        $("#popup2").show();
-    }
-
-    function PopUpPayShow() {
-        $("#popup1").show();
-    }
-
-    function PopUpDifferentTypeOfPaymentShow() {
-        $("#popup3").show();
-    }
-
-    function PopUpNewUserHide() {
-        $("#popup2").hide();
-    }
-
-    function PopUpPayHide() {
-        $("#popup1").hide();
-    }
-
-    function PopUpDifferentTypeOfPaymentHide() {
-        $("#popup3").hide();
-    }
-
-    function subForSecond() {
-        var secondTextArea = document.getElementById('second');
-        document.getElementById('first').value = (${totalCost} -secondTextArea.value).toFixed(2);
-    }
-
-    function subForFirst() {
-        var firstTextArea = document.getElementById('first');
-        document.getElementById('second').value = (${totalCost} -firstTextArea.value).toFixed(2);
-    }
-</script>
 </html>
