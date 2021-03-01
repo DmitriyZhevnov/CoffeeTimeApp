@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <head>
     <title><spring:message code="closedOrders.title"/></title>
@@ -80,7 +81,10 @@
                     <div class='menuPage-section-products'>${order.time}</div>
                 </div>
                 <div class='menuPage-section'>
-                    <div class='menuPage-section-products'>${order.cardAmount + order.cashAmount}</div>
+                    <div class='menuPage-section-products'>
+                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${order.cardAmount + order.cashAmount}"/>
+<%--                            ${order.cardAmount + order.cashAmount}--%>
+                    </div>
                 </div>
                 <sec:authorize access="hasRole('USER')">
                     <div class='menuPage-section'>

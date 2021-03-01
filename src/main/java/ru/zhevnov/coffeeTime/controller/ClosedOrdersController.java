@@ -56,7 +56,7 @@ public class ClosedOrdersController {
             orderService.cancelOrder(idOrder, reason, type);
         }
         model.addAttribute("order", orderService.returnOrderById(idOrder));
-        return "main/orders/ordersInfo";
+        return "redirect:/closedOrders/"+idOrder;
     }
 
     @PatchMapping("/{idOrder}/changePaymentType")
@@ -68,7 +68,7 @@ public class ClosedOrdersController {
         if (orderService.returnOrderById(idOrder).getPaymentType().equals("cancelled")) {
             model.addAttribute("msg", "Тип оплаты изменить нельзя, так как заказ был отменён.");
             model.addAttribute("order", orderService.returnOrderById(idOrder));
-            return "main/orders/ordersInfo";
+            return "redirect:/closedOrders/" + idOrder;
         } else {
             if (type.equals("different")) {
                 try {
@@ -82,13 +82,13 @@ public class ClosedOrdersController {
                     model.addAttribute("msg", "Ошибка. Введите сумму корректно");
                 } finally {
                     model.addAttribute("order", orderService.returnOrderById(idOrder));
-                    return "main/orders/ordersInfo";
+                    return "redirect:/closedOrders/" + idOrder;
                 }
             } else {
                 orderService.changePaymentType(idOrder, type, cash, card, reason);
             }
             model.addAttribute("order", orderService.returnOrderById(idOrder));
-            return "main/orders/ordersInfo";
+            return "redirect:/closedOrders/" + idOrder;
         }
     }
 }

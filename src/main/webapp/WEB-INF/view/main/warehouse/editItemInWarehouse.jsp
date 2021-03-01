@@ -15,7 +15,6 @@
             </div>
         </div>
     </header>
-
     <div class='editProduct-second-section'>
         <div class='main main-menuPage main-menuPage_editProduct'>
             <div class='menuPage'>

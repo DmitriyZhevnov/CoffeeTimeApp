@@ -28,7 +28,8 @@
                 <tr>
                     <td>${item.products.get(0).name}</td>
                     <td align="center">${item.quantity} шт.</td>
-                    <td align="center">${item.products.get(0).price}</td>
+                    <td align="center">${item.products.get(0).price * item.quantity}
+                    </td>
                 </tr>
             </c:forEach>
             <tr style="background: bisque">
@@ -45,7 +46,10 @@
             </tr>
             <tr style="background: bisque">
                 <td><spring:message code="closedOrders.totalCost"/>:</td>
-                <td colspan="2" align="center">${order.cardAmount + order.cashAmount}</td>
+                <td colspan="2" align="center">
+                    <fmt:formatNumber type="number" maxFractionDigits="2"
+                                      value=" ${order.cardAmount + order.cashAmount}"/>
+                </td>
             </tr>
             <tr style="background: bisque">
                 <td><spring:message code="closedOrders.paymentType"/>:</td>
@@ -125,7 +129,8 @@
                     <input type="hidden" name="paymentType" value="different">
                     <p align="right"><spring:message code="newOrder.cash"/>: <textarea id="first" name="cashAmount"
                                                                                        oninput="subForFirst(${order.cardAmount + order.cashAmount})" cols="15"
-                                                                                       rows="1">${order.cardAmount + order.cashAmount}</textarea>
+                                                                                       rows="1"><fmt:formatNumber type="number" maxFractionDigits="2" value=" ${order.cardAmount + order.cashAmount}"/>
+                    </textarea>
                     </p>
                     <p align="right"><spring:message code="newOrder.card"/>: <textarea id="second"
                                                                                        oninput="subForSecond(${order.cardAmount + order.cashAmount})"

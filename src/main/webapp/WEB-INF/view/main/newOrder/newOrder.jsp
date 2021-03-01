@@ -28,7 +28,7 @@
                                                                                                       width="20px"
                                                                                                       src="<c:url value="/images/delProduct.png"/>"></a>
                         </div>
-                        <div class='first-section_basket-products_price'>${item.products.get(0).price}</div>
+                        <div class='first-section_basket-products_price'>${item.products.get(0).price * item.quantity}</div>
                     </div>
                 </div>
             </c:forEach>
