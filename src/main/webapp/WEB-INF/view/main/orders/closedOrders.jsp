@@ -83,7 +83,6 @@
                 <div class='menuPage-section'>
                     <div class='menuPage-section-products'>
                         <fmt:formatNumber type="number" maxFractionDigits="2" value="${order.cardAmount + order.cashAmount}"/>
-<%--                            ${order.cardAmount + order.cashAmount}--%>
                     </div>
                 </div>
                 <sec:authorize access="hasRole('USER')">
